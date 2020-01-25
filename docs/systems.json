@@ -1,6 +1,7 @@
 {
 	"systems": [
 		{
+            "id": 1,
 			"star":"Gliese 876",
 			"constellation":"Aquarius",
 			"distanceFromEarth":15.0,
@@ -53,6 +54,7 @@
 			"imageURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Gliese_876_and_Gliese_876_d_by_Celestia.png/250px-Gliese_876_and_Gliese_876_d_by_Celestia.png"
 		},
 		{
+            "id": 2,
 			"star":"14 Herculis",
 			"constellation":"Hercules",
 			"distanceFromEarth":57.0,
