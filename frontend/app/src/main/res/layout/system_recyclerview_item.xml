@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="Constellation: "
+            android:text="@string/constellation"
             android:textSize="14sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/systemConstellation"
             app:layout_constraintStart_toEndOf="@+id/imageViewCoverR" />
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="Distance from Earth: "
+            android:text="@string/distance"
             android:textSize="14sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/systemDistanceEarth"
             app:layout_constraintStart_toEndOf="@+id/imageViewCoverR" />

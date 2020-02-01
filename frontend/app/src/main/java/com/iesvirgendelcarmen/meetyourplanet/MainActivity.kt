@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iesvirgendelcarmen.meetyourplanet.adapters.SystemRecyclerAdapter
+import com.iesvirgendelcarmen.meetyourplanet.fragment.HomeFragment
 import com.iesvirgendelcarmen.meetyourplanet.fragment.SystemsListFragment
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
 import com.iesvirgendelcarmen.meetyourplanet.model.Resource
@@ -18,6 +19,7 @@ import com.iesvirgendelcarmen.meetyourplanet.model.SystemViewModel
 class MainActivity : AppCompatActivity() {
 
     private val listFragment: SystemsListFragment = SystemsListFragment()
+    private val homeFragment: HomeFragment = HomeFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         if(savedInstanceState == null){
             supportFragmentManager
                 .beginTransaction()
-                .add(R.id.container, listFragment)
+                .add(R.id.container, homeFragment)
                 .commit()
         }
 

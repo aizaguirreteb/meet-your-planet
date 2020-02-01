@@ -9,9 +9,6 @@ import android.view.ViewGroup
 
 import com.iesvirgendelcarmen.meetyourplanet.R
 
-/**
- * A simple [Fragment] subclass.
- */
 class HomeFragment : Fragment() {
 
     override fun onCreateView(
