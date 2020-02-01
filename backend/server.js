@@ -8,7 +8,7 @@ const app = express()
 app.use(bodyParser.json())
 
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://172.17.0.2/dbPlanetary',
+mongoose.connect(config.mongoDBURL,
     { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.get('/', (req, res) => {
