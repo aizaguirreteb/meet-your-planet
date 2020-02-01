@@ -34,14 +34,13 @@ RecyclerView.Adapter<SystemRecyclerAdapter.SystemViewHolder>() {
         val systemConstellation = itemView.findViewById<TextView>(R.id.systemConstellation)
         val systemDistance = itemView.findViewById<TextView>(R.id.systemDistanceEarth)
         val systemImage = itemView.findViewById<ImageView>(R.id.imageViewCoverR)
-        val systemPlanets = itemView.findViewById<TextView>(R.id.textViewNumberPlanets)
 
 
         fun bind(planetarySystem: PlanetarySystem, clickListener:OnItemClickListener){
             systemTitle.text = planetarySystem.star
             systemConstellation.text = planetarySystem.constellation
             systemDistance.text = planetarySystem.distanceFromEarth.toString() + " AU"
-            systemPlanets.text = "" + planetarySystem.planets.size
+
 
             Glide
                 .with(itemView.context)
