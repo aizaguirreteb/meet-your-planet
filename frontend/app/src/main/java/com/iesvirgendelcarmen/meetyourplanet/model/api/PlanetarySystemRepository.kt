@@ -1,5 +1,6 @@
 package com.iesvirgendelcarmen.meetyourplanet.model.api
 
+import com.iesvirgendelcarmen.meetyourplanet.config.ApiConfig
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +15,7 @@ object PlanetarySystemRepository {
     init {
         val retrofit = Retrofit
             .Builder()
-            .baseUrl("http://IP:3000/")
+            .baseUrl(ApiConfig.API_URL_BASE)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         api = retrofit.create(SystemRetrofitApi::class.java)
