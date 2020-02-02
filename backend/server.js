@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const config = require('./src/config')
 const systemsRoutes = require('./src/routes/systems')
+const planetsRoutes = require('./src/routes/planets')
 
 const app = express()
 app.use(bodyParser.json())
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
     res.json({ server: 'ok' })
 })
 app.use('/api', systemsRoutes)
+app.use('/api', planetsRoutes)
 
 const port = config.port
 const server = app.listen(port, () => {

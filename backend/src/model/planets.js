@@ -41,7 +41,7 @@ const planetsSchema = new Schema({
     gravity: {
         type: String,
         default: 'Unknown',
-        required: false
+        required: true
     },
     surface: {
         type: String,
@@ -52,6 +52,11 @@ const planetsSchema = new Schema({
         type: String,
         minlength: 0,
         required: false
+    },
+    systemId: {
+        type: String,
+        required: true,
+        trim: true
     }
 
 }, {
