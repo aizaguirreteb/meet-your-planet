@@ -10,3 +10,7 @@ This project is built in:
   - MongoDB
 
 And licensed by GPL v3.
+
+## Database E-R
+
+![alt text](./docs/E-R_diagram.jpeg "E-R Diagram")
