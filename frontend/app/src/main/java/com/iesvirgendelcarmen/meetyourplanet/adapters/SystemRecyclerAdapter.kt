@@ -35,10 +35,12 @@ RecyclerView.Adapter<SystemRecyclerAdapter.SystemViewHolder>() {
         val systemDistance = itemView.findViewById<TextView>(R.id.systemDistanceEarth)
         val systemImage = itemView.findViewById<ImageView>(R.id.imageViewCoverR)
 
+
         fun bind(planetarySystem: PlanetarySystem, clickListener:OnItemClickListener){
             systemTitle.text = planetarySystem.star
             systemConstellation.text = planetarySystem.constellation
-            systemDistance.text = planetarySystem.distanceFromEarth.toString()
+            systemDistance.text = planetarySystem.distanceFromEarth.toString() + " AU"
+
 
             Glide
                 .with(itemView.context)

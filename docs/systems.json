@@ -83,6 +83,90 @@
 				}
 			],
 			"imageURL": ""
+		},
+		{
+            "id": 3,
+			"star":"Gliese 876",
+			"constellation":"Aquarius",
+			"distanceFromEarth":15.0,
+			"planets": [
+				{
+					"name":"Gliese 876 b",
+					"category":"Extrasolar Planet",
+					"orbitalPeriod":60.94,
+					"mass": ">1.96xMJup",
+					"equilibriumTemperature": 194,
+					"numberSatellites": 0,
+					"gravity": "Unknown",
+					"surface": "Gas",
+					"planetImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Artist%27s_concept_of_Gliese_876_b.jpg/800px-Artist%27s_concept_of_Gliese_876_b.jpg"
+				},
+				{
+					"name":"Gliese 876 c",
+					"category":"Extrasolar Planet",
+					"orbitalPeriod": 30.34,
+					"mass": "0.76xMJup",
+					"equilibriumTemperature": 0,
+					"numberSatellites": 0,
+					"gravity": "Unknown",
+					"surface": "Gas",
+					"planetImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Gliese876c-b.jpg/245px-Gliese876c-b.jpg"
+				},
+				{
+					"name":"Gliese 876 d",
+					"category":"Superearth",
+					"orbitalPeriod": 1.94,
+					"mass": ">5.88xMEarth",
+					"equilibriumTemperature":614,
+					"numberSatellites": 0,
+					"gravity": 0.00,
+					"surface": "Unknown",
+					"planetImage":"https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Artist%E2%80%99s_view_of_an_exoplanet_inspired_by_the_discovery_of_Gliese_876_d.jpg/220px-Artist%E2%80%99s_view_of_an_exoplanet_inspired_by_the_discovery_of_Gliese_876_d.jpg"
+				},
+				{
+					"name":"Gliese 876 e",
+					"category":"Extrasolar Planet",
+					"orbitalPeriod":124.26,
+					"mass": "14.6xMEarth",
+					"equilibriumTemperature":0,
+					"numberSatellites": 0,
+					"gravity": "Unknown",
+					"surface": "Unknown",
+					"planetImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/ConceptJKV-Gliese876-e.png/245px-ConceptJKV-Gliese876-e.png"
+				}
+			],
+			"imageURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Gliese_876_and_Gliese_876_d_by_Celestia.png/250px-Gliese_876_and_Gliese_876_d_by_Celestia.png"
+		},
+		{
+            "id": 4,
+			"star":"14 Herculis",
+			"constellation":"Hercules",
+			"distanceFromEarth":57.0,
+			"planets": [
+				{
+					"name":"14 Herculis b",
+					"category":"Gas Giant Planet",
+					"orbitalPeriod":1773.4,
+					"mass": ">4.64xMJup",
+					"equilibriumTemperature": 0,
+					"numberSatellites": 0,
+					"gravity": "Unknown",
+					"surface": "Unknown",
+					"planetImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/14_Herculis_b_%28Celestia%29.jpg/245px-14_Herculis_b_%28Celestia%29.jpg"
+				},
+				{
+					"name":"14 Herculis c",
+					"category":"Extrasolar Planet",
+					"orbitalPeriod": 6906,
+					"mass": ">2.1xMJup",
+					"equilibriumTemperature": 0,
+					"numberSatellites": 0,
+					"gravity": "Unknown",
+					"surface": "Gas",
+					"planetImage": ""
+				}
+			],
+			"imageURL": ""
 		}
 	]
 }

@@ -1,72 +1,107 @@
 package com.iesvirgendelcarmen.meetyourplanet
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.iesvirgendelcarmen.meetyourplanet.adapters.SystemRecyclerAdapter
-import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
-import com.iesvirgendelcarmen.meetyourplanet.model.Resource
-import com.iesvirgendelcarmen.meetyourplanet.model.SystemViewModel
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
+import com.iesvirgendelcarmen.meetyourplanet.fragment.HomeFragment
+import com.iesvirgendelcarmen.meetyourplanet.fragment.SystemsListFragment
 
-class MainActivity : AppCompatActivity() {
 
-    private lateinit var systemListRecycler : RecyclerView
-    private lateinit var systemAdapter: SystemRecyclerAdapter
+class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
 
-    private val systemViewModel: SystemViewModel by lazy {
-        ViewModelProviders.of(this).get(SystemViewModel::class.java)
-    }
+    private val listFragment: SystemsListFragment = SystemsListFragment()
+    private val homeFragment: HomeFragment = HomeFragment()
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var navigationView: NavigationView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var clickListener = object: SystemRecyclerAdapter.OnItemClickListener{
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        var abar = supportActionBar
+        if(abar != null){
+            abar.setHomeAsUpIndicator(R.drawable.menu)
+            abar.setDisplayHomeAsUpEnabled(true)
 
-            override fun onClicked(planetarySystem: PlanetarySystem) {
-                Toast.makeText(baseContext,
-                    "${planetarySystem.star} + ${planetarySystem.id}",
-                    Toast.LENGTH_SHORT).show()
+            abar.setTitle("MEET YOUR PLANET")
+        }
+
+        drawerLayout = findViewById(R.id.drawer)
+        navigationView = findViewById(R.id.navigator)
+
+
+        navigationView.setNavigationItemSelectedListener(this)
+        if(savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.container, homeFragment)
+                .commit()
+        }
+
+
+
+    }
+
+
+
+
+    private fun changeFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun configurarDrawer(navigationView: NavigationView) {
+
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> {
+                drawerLayout.openDrawer(GravityCompat.START)
             }
         }
+        return true
+    }
 
-        systemAdapter = SystemRecyclerAdapter(emptyList(), clickListener)
 
-        systemListRecycler = findViewById<RecyclerView>(R.id.systemsRecyclerList).apply{
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = systemAdapter
+
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            R.id.nav_logino -> {
+                Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_systems -> {
+                changeFragment(listFragment)
+            }
+            R.id.nav_home -> {
+                changeFragment(homeFragment)
+            }
+
         }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 
-    override fun onStart() {
-        super.onStart()
-        observeSystemList()
-        systemViewModel.getAllPlanetarySystems()
-    }
-
-    private fun observeSystemList(){
-        systemViewModel.systemListLiveData.observe(this, Observer {
-            resource ->
-                when(resource.status){
-                    Resource.Status.SUCCESS -> {
-                        systemAdapter.systems = resource.data
-                        systemAdapter.notifyDataSetChanged()
-                    }
-                    Resource.Status.ERROR -> {
-                        if(resource.message != null ){
-                            Toast.makeText(baseContext, resource.message , Toast.LENGTH_LONG).show()
-                        }
-                    }
-                    Resource.Status.LOADING -> {
-                        Toast.makeText(baseContext, "Loading Systems" , Toast.LENGTH_LONG).show()
-
-                    }
-                }
-        })
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

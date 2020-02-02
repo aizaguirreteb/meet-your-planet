@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Meet Your Planet</string>
+    <string name="list_fragment_title">PLANETARY SYSTEMS</string>
+
+    <string name="home_fragment">Find a planetary system, save it and learn about the universe!</string>
+    <string name="constellation">Constellation: </string>
+    <string name="distance">Distance from Earth: </string>
 </resources>
