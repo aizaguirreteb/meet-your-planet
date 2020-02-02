@@ -24,5 +24,23 @@ module.exports = {
             if(err) res.status(500).json(err)
             res.status(201).json(result)
         })
+    },
+    getPlanetById: (req, res)=> {
+        planetsModel.findById({_id: req.params.id}, (err, result) =>{
+            if(err) res.status(500).send(err)
+            res.json(result)
+        })
+    },
+    updatePlanetById:  (req, res) => {
+        planetsModel.updateOne({ _id: req.params.id }, req.body, { new: true }, (err, result) => {
+            if (err) res.status(404).json(err)
+            res.status(204).json(result)
+        })
+    },
+    deletePlanetById: (req, res) => {
+        planetsModel.findOneAndDelete({ _id: req.params.id }, (err, result) => {
+            if (err) res.status(404).json(err)
+            res.send(result)
+        })
     }
 }

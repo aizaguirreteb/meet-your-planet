@@ -6,4 +6,9 @@ router.route('/planets')
       .get(planetsSchema.getPlanets)
       .post(planetsSchema.addPlanet)
 
+router.route('/planets/:id')
+      .get(planetsSchema.getPlanetById)
+      .put(planetsSchema.updatePlanetById)
+      .delete(planetsSchema.deletePlanetById)
+
 module.exports = router
