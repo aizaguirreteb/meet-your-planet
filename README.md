@@ -24,6 +24,7 @@ Login | POST | /login
 New user | POST | /login/new
 --- | --- | ---
 Get Systems | GET | /api/systems
+Get System By Id | GET | /api/systems/{id}
 Add System | POST | /api/systems
 Update System | PUT | /api/systems/{id}
 Delete System | DELETE | /api/systems/{id}
