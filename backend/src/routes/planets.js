@@ -11,4 +11,7 @@ router.route('/planets/:id')
       .put(planetsSchema.updatePlanetById)
       .delete(planetsSchema.deletePlanetById)
 
+router.route('/systems/:id/planets')
+      .get(planetsSchema.getPlanetsBySystemId)
+
 module.exports = router
