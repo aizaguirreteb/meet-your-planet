@@ -11,7 +11,8 @@ import com.iesvirgendelcarmen.meetyourplanet.R
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
 
 class SystemRecyclerAdapter (var systems: List<PlanetarySystem>,
-                             val itemClickListener: OnItemClickListener):
+                             val itemClickListener: OnItemClickListener,
+                             val itemLongCLickListener: OnItemLongClickListener):
 RecyclerView.Adapter<SystemRecyclerAdapter.SystemViewHolder>() {
 
 
@@ -26,7 +27,7 @@ RecyclerView.Adapter<SystemRecyclerAdapter.SystemViewHolder>() {
 
     override fun onBindViewHolder(holder: SystemViewHolder, position: Int) {
          val system = systems[position]
-        holder.bind(system, itemClickListener)
+        holder.bind(system, itemClickListener, itemLongCLickListener)
     }
 
     inner class SystemViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -36,7 +37,7 @@ RecyclerView.Adapter<SystemRecyclerAdapter.SystemViewHolder>() {
         val systemImage = itemView.findViewById<ImageView>(R.id.imageViewCoverR)
 
 
-        fun bind(planetarySystem: PlanetarySystem, clickListener:OnItemClickListener){
+        fun bind(planetarySystem: PlanetarySystem, clickListener:OnItemClickListener, longClickListener: OnItemLongClickListener){
             systemTitle.text = planetarySystem.star
             systemConstellation.text = planetarySystem.constellation
             systemDistance.text = planetarySystem.distanceFromEarth.toString() + " AU"
@@ -52,11 +53,20 @@ RecyclerView.Adapter<SystemRecyclerAdapter.SystemViewHolder>() {
             itemView.setOnClickListener{
                 clickListener.onClicked(planetarySystem)
             }
+
+            itemView.setOnLongClickListener {
+                longClickListener.onLongClicked(planetarySystem)
+                true
+            }
         }
     }
 
     interface OnItemClickListener{
         fun onClicked(planetarySystem: PlanetarySystem)
+    }
+
+    interface OnItemLongClickListener{
+        fun onLongClicked(planetarySystem: PlanetarySystem)
     }
 
 }

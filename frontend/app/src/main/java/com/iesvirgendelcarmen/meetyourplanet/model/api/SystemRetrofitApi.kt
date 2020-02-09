@@ -9,7 +9,7 @@ interface SystemRetrofitApi {
 
     //PLANETARY SYSTEM
 
-    @GET("systems")
+    @GET("api/systems")
     fun getAllPlanetarySystems() : Call<List<PlanetarySystem>>
 
     @GET("systems/{id}")

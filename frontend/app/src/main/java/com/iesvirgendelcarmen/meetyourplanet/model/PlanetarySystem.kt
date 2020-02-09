@@ -1,6 +1,6 @@
 package com.iesvirgendelcarmen.meetyourplanet.model
 
-data class PlanetarySystem (val id: Int,
+data class PlanetarySystem (val _id: String,
                             val star: String,
                             val constellation: String,
                             val distanceFromEarth: Double,

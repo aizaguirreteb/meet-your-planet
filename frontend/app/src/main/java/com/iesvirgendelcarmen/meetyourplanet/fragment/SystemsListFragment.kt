@@ -42,11 +42,20 @@ class SystemsListFragment : Fragment() {
 
             override fun onClicked(planetarySystem: PlanetarySystem) {
                 Toast.makeText(context,
-                    "${planetarySystem.star} + ${planetarySystem.id}",
+                    "${planetarySystem.star} + ${planetarySystem._id}",
                     Toast.LENGTH_SHORT).show()
             }
         }
-        myAdapter = SystemRecyclerAdapter(emptyList(), clickListener)
+
+        var longClickListener = object : SystemRecyclerAdapter.OnItemLongClickListener {
+            override fun onLongClicked(planetarySystem: PlanetarySystem) {
+                Toast.makeText(context,
+                    "Borrando ${planetarySystem.star} + ${planetarySystem._id}",
+                    Toast.LENGTH_SHORT).show()
+            }
+
+        }
+        myAdapter = SystemRecyclerAdapter(emptyList(), clickListener, longClickListener)
         recyclerView = view.findViewById<RecyclerView>(R.id.fragment_recycler_view).apply{
             adapter = myAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
