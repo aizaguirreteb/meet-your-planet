@@ -25,4 +25,20 @@ class SystemViewModel : ViewModel(){
         })
     }
 
+    fun deletePlanetarySystemById(id: String) {
+        PlanetarySystemRepository.deletePlanetarySystemById(id,
+            object : PlanetarySystemRepository.PlanetarySystemListRepositoryCallback {
+                override fun onPlanetarySystemResponse(planetarySystems: List<PlanetarySystem>) {
+                    systemListLiveData.value = Resource.success(planetarySystems)
+                }
+
+                override fun onPlanetarySystemError(msg: String?) {
+                    systemListLiveData.value = Resource.error(msg.orEmpty(), emptyList())
+                }
+
+                override fun onPlanetarySystemLoading() {
+                }
+            })
+    }
+
 }

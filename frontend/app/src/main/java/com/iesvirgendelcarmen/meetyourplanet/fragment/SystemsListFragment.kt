@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,14 +32,13 @@ class SystemsListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_systems_list, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var clickListener = object: SystemRecyclerAdapter.OnItemClickListener{
+        val clickListener = object: SystemRecyclerAdapter.OnItemClickListener{
 
             override fun onClicked(planetarySystem: PlanetarySystem) {
                 Toast.makeText(context,
@@ -47,11 +47,27 @@ class SystemsListFragment : Fragment() {
             }
         }
 
-        var longClickListener = object : SystemRecyclerAdapter.OnItemLongClickListener {
+        val longClickListener = object : SystemRecyclerAdapter.OnItemLongClickListener {
             override fun onLongClicked(planetarySystem: PlanetarySystem) {
-                Toast.makeText(context,
-                    "Borrando ${planetarySystem.star} + ${planetarySystem._id}",
-                    Toast.LENGTH_SHORT).show()
+                val builder = AlertDialog.Builder(context!!)
+                builder.setMessage(getString(R.string.deleteSystemQuestion))
+                    .setPositiveButton(
+                        getString(R.string.yes)
+                    ) { dialog, _ ->
+                        Toast.makeText(context,
+                            "${getString(R.string.deleting)} ${planetarySystem.star}",
+                            Toast.LENGTH_SHORT).show()
+                        systemViewModel.deletePlanetarySystemById(planetarySystem._id)
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton(
+                        getString(R.string.cancel)
+                    ) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                builder.create()
+                builder.show()
+
             }
 
         }
@@ -84,7 +100,7 @@ class SystemsListFragment : Fragment() {
                     }
                 }
                 Resource.Status.LOADING -> {
-                    Toast.makeText(context, "Loading Systems" , Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, getString(R.string.loadingSystems), Toast.LENGTH_LONG).show()
 
                 }
             }

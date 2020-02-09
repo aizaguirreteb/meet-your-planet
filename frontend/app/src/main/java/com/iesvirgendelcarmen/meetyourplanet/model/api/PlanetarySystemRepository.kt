@@ -41,14 +41,23 @@ object PlanetarySystemRepository {
         })
     }
 
+    fun deletePlanetarySystemById(id: String, callback: PlanetarySystemListRepositoryCallback){
+        val call = api.deletePlanetarySystemById(id)
+        call.enqueue(object : Callback<Unit>{
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                callback.onPlanetarySystemError(t.message)
+            }
 
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                getPlanetarySystems(callback)
+            }
+
+        })
+    }
 
     interface PlanetarySystemListRepositoryCallback{
         fun onPlanetarySystemResponse(planetarySystems: List<PlanetarySystem>)
         fun onPlanetarySystemError(msg: String?)
         fun onPlanetarySystemLoading()
     }
-
-
-
 }

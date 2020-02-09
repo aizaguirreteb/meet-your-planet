@@ -5,4 +5,9 @@
     <string name="home_fragment">Find a planetary system, save it and learn about the universe!</string>
     <string name="constellation">Constellation: </string>
     <string name="distance">Distance from Earth: </string>
+    <string name="loadingSystems">Loading Systems…</string>
+    <string name="deleting">Deleting</string>
+    <string name="deleteSystemQuestion">Delete this planetary system?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>
