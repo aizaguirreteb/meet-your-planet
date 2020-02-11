@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.iesvirgendelcarmen.meetyourplanet.MainActivity
 
 import com.iesvirgendelcarmen.meetyourplanet.R
 import com.iesvirgendelcarmen.meetyourplanet.adapters.SystemRecyclerAdapter
@@ -44,6 +45,7 @@ class SystemsListFragment : Fragment() {
                 Toast.makeText(context,
                     "${planetarySystem.star} + ${planetarySystem._id}",
                     Toast.LENGTH_SHORT).show()
+                (activity as MainActivity).changeFragment(SystemDetailFragment(planetarySystem))
             }
         }
 

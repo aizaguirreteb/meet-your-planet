@@ -7,6 +7,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 object PlanetarySystemRepository {
 
@@ -41,6 +42,28 @@ object PlanetarySystemRepository {
         })
     }
 
+    fun getSystemById(id: String, callback: PlanetarySystemRepositoryCallback){
+        callback.onPlanetarySystemLoading()
+        val call = api.getPlanetarySystemById(id)
+        call.enqueue(object : Callback<PlanetarySystem>{
+            override fun onFailure(call: Call<PlanetarySystem>, t: Throwable) {
+                callback.onPlanetarySystemError(t.message)
+            }
+
+            override fun onResponse(
+                call: Call<PlanetarySystem>,
+                response: Response<PlanetarySystem>
+            ) {
+                var systemResponse = response.body()
+                if (systemResponse == null) {
+                    systemResponse = PlanetarySystem( "", "", "", 0.0, "")
+                }
+                callback.onPlanetarySystemResponse(systemResponse)
+            }
+
+        })
+    }
+
     fun deletePlanetarySystemById(id: String, callback: PlanetarySystemListRepositoryCallback){
         val call = api.deletePlanetarySystemById(id)
         call.enqueue(object : Callback<Unit>{
@@ -57,6 +80,12 @@ object PlanetarySystemRepository {
 
     interface PlanetarySystemListRepositoryCallback{
         fun onPlanetarySystemResponse(planetarySystems: List<PlanetarySystem>)
+        fun onPlanetarySystemError(msg: String?)
+        fun onPlanetarySystemLoading()
+    }
+
+    interface PlanetarySystemRepositoryCallback{
+        fun onPlanetarySystemResponse(planetarySystem: PlanetarySystem)
         fun onPlanetarySystemError(msg: String?)
         fun onPlanetarySystemLoading()
     }

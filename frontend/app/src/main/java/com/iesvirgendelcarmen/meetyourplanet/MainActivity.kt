@@ -48,15 +48,9 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
                 .add(R.id.container, homeFragment)
                 .commit()
         }
-
-
-
     }
-
-
-
-
-    private fun changeFragment(fragment: Fragment) {
+    
+    fun changeFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, fragment)

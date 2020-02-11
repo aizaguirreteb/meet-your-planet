@@ -10,4 +10,5 @@
     <string name="deleteSystemQuestion">Delete this planetary system?</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+    <string name="auUnit">AU</string>
 </resources>

@@ -40,7 +40,7 @@ RecyclerView.Adapter<SystemRecyclerAdapter.SystemViewHolder>() {
         fun bind(planetarySystem: PlanetarySystem, clickListener:OnItemClickListener, longClickListener: OnItemLongClickListener){
             systemTitle.text = planetarySystem.star
             systemConstellation.text = planetarySystem.constellation
-            systemDistance.text = planetarySystem.distanceFromEarth.toString() + " AU"
+            systemDistance.text = "${planetarySystem.distanceFromEarth} ${itemView.resources.getString(R.string.auUnit)}"
 
 
             Glide
