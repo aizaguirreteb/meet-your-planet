@@ -18,6 +18,7 @@ interface SystemRetrofitApi {
     @DELETE("api/systems/{id}")
     fun deletePlanetarySystemById(@Path("id") id: String) : Call<Unit>
 
-
+    @POST("api/systems")
+    fun addPlanetarySystem(@Body planetarySystem: PlanetarySystem) : Call<PlanetarySystem>
 
 }

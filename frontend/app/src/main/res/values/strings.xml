@@ -11,4 +11,10 @@
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="auUnit">AU</string>
+    <string name="systems_form_main_title">Systems form</string>
+    <string name="star">Star:</string>
+    <string name="image_url">Image URL:</string>
+    <string name="add_system">Add System</string>
+    <string name="system_form_field_error">There are non valid fields!</string>
+    <string name="system_form_field_adding">Adding System...</string>
 </resources>

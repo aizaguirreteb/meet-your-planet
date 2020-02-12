@@ -19,6 +19,7 @@ import com.iesvirgendelcarmen.meetyourplanet.adapters.SystemRecyclerAdapter
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
 import com.iesvirgendelcarmen.meetyourplanet.model.Resource
 import com.iesvirgendelcarmen.meetyourplanet.model.SystemViewModel
+import kotlinx.android.synthetic.main.fragment_systems_list.*
 
 
 class SystemsListFragment : Fragment() {
@@ -77,6 +78,10 @@ class SystemsListFragment : Fragment() {
         recyclerView = view.findViewById<RecyclerView>(R.id.fragment_recycler_view).apply{
             adapter = myAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        }
+
+        fabListSystemAdd.setOnClickListener {
+            (activity as MainActivity).changeFragment(SystemFormFragment())
         }
 
     }
