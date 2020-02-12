@@ -17,4 +17,9 @@
     <string name="add_system">Add System</string>
     <string name="system_form_field_error">There are non valid fields!</string>
     <string name="system_form_field_adding">Adding System...</string>
+    <string name="edit_system">Update System</string>
+    <string name="system_form_field_updating">Updating Planetary System...</string>
+    <string name="whatToDoSystem">What would you do with this system?</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

@@ -21,4 +21,7 @@ interface SystemRetrofitApi {
     @POST("api/systems")
     fun addPlanetarySystem(@Body planetarySystem: PlanetarySystem) : Call<PlanetarySystem>
 
+    @PUT("api/systems/{id}")
+    fun updatePlanetarySystem(@Path("id") id: String, @Body planetarySystem: PlanetarySystem) : Call<PlanetarySystem>
+
 }

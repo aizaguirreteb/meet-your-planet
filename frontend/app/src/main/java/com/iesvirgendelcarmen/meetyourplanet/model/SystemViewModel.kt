@@ -60,4 +60,21 @@ class SystemViewModel : ViewModel(){
             })
     }
 
+    fun updatePlanetarySystem(id: String, planetarySystem: PlanetarySystem) {
+        PlanetarySystemRepository.updatePlanetarySystem(id, planetarySystem,
+            object : PlanetarySystemRepository.PlanetarySystemRepositoryCallback {
+                override fun onPlanetarySystemResponse(planetarySystem: PlanetarySystem) {
+
+                }
+
+                override fun onPlanetarySystemError(msg: String?) {
+                    systemListLiveData.value = Resource.error(msg.orEmpty(), emptyList())
+                }
+
+                override fun onPlanetarySystemLoading() {
+                }
+
+            })
+    }
+
 }

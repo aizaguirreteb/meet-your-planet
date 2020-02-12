@@ -99,6 +99,27 @@ object PlanetarySystemRepository {
         })
     }
 
+    fun updatePlanetarySystem(id: String, planetarySystem: PlanetarySystem, callback: PlanetarySystemRepositoryCallback) {
+        val call = api.updatePlanetarySystem(id, planetarySystem)
+        call.enqueue(object : Callback<PlanetarySystem>{
+            override fun onFailure(call: Call<PlanetarySystem>, t: Throwable) {
+                callback.onPlanetarySystemError(t.message)
+            }
+
+            override fun onResponse(
+                call: Call<PlanetarySystem>,
+                response: Response<PlanetarySystem>
+            ) {
+                var systemResponse = response.body()
+                if (systemResponse == null) {
+                    systemResponse = PlanetarySystem( "", "", "", 0.0, "")
+                }
+                callback.onPlanetarySystemResponse(systemResponse)
+            }
+
+        })
+    }
+
     interface PlanetarySystemListRepositoryCallback{
         fun onPlanetarySystemResponse(planetarySystems: List<PlanetarySystem>)
         fun onPlanetarySystemError(msg: String?)

@@ -52,25 +52,39 @@ class SystemsListFragment : Fragment() {
 
         val longClickListener = object : SystemRecyclerAdapter.OnItemLongClickListener {
             override fun onLongClicked(planetarySystem: PlanetarySystem) {
-                val builder = AlertDialog.Builder(context!!)
-                builder.setMessage(getString(R.string.deleteSystemQuestion))
+                val builderAction = AlertDialog.Builder(context!!)
+                builderAction.setMessage(getString(R.string.whatToDoSystem))
                     .setPositiveButton(
-                        getString(R.string.yes)
+                        getString(R.string.edit)
                     ) { dialog, _ ->
-                        Toast.makeText(context,
-                            "${getString(R.string.deleting)} ${planetarySystem.star}",
-                            Toast.LENGTH_SHORT).show()
-                        systemViewModel.deletePlanetarySystemById(planetarySystem._id)
+                        editSystem(planetarySystem)
                         dialog.dismiss()
                     }
                     .setNegativeButton(
-                        getString(R.string.cancel)
+                        getString(R.string.delete)
                     ) { dialog, _ ->
+                        val builderDelete = AlertDialog.Builder(context!!)
+                        builderDelete.setMessage(getString(R.string.deleteSystemQuestion))
+                            .setPositiveButton(
+                                getString(R.string.yes)
+                            ) { dialog, _ ->
+                                Toast.makeText(context,
+                                    "${getString(R.string.deleting)} ${planetarySystem.star}",
+                                    Toast.LENGTH_SHORT).show()
+                                systemViewModel.deletePlanetarySystemById(planetarySystem._id)
+                                dialog.dismiss()
+                            }
+                            .setNegativeButton(
+                                getString(R.string.cancel)
+                            ) { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                        builderDelete.create()
+                        builderDelete.show()
                         dialog.dismiss()
                     }
-                builder.create()
-                builder.show()
-
+                builderAction.create()
+                builderAction.show()
             }
 
         }
@@ -112,6 +126,14 @@ class SystemsListFragment : Fragment() {
                 }
             }
         })
+    }
+
+    fun editSystem(planetarySystem: PlanetarySystem) {
+        val editSystemFragment = SystemFormFragment()
+        val args = Bundle()
+        args.putParcelable("PLANETARYSYSTEM", planetarySystem)
+        editSystemFragment.arguments = args
+        (activity as MainActivity).changeFragment(editSystemFragment)
     }
 
 }
