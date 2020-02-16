@@ -5,4 +5,21 @@
     <string name="home_fragment">Find a planetary system, save it and learn about the universe!</string>
     <string name="constellation">Constellation: </string>
     <string name="distance">Distance from Earth: </string>
+    <string name="loadingSystems">Loading Systems…</string>
+    <string name="deleting">Deleting</string>
+    <string name="deleteSystemQuestion">Delete this planetary system?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="auUnit">AU</string>
+    <string name="systems_form_main_title">Systems form</string>
+    <string name="star">Star:</string>
+    <string name="image_url">Image URL:</string>
+    <string name="add_system">Add System</string>
+    <string name="system_form_field_error">There are non valid fields!</string>
+    <string name="system_form_field_adding">Adding System...</string>
+    <string name="edit_system">Update System</string>
+    <string name="system_form_field_updating">Updating Planetary System...</string>
+    <string name="whatToDoSystem">What would you do with this system?</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

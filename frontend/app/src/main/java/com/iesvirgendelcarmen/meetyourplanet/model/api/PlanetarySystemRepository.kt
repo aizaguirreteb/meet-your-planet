@@ -41,7 +41,79 @@ object PlanetarySystemRepository {
         })
     }
 
+    fun getSystemById(id: String, callback: PlanetarySystemRepositoryCallback){
+        callback.onPlanetarySystemLoading()
+        val call = api.getPlanetarySystemById(id)
+        call.enqueue(object : Callback<PlanetarySystem>{
+            override fun onFailure(call: Call<PlanetarySystem>, t: Throwable) {
+                callback.onPlanetarySystemError(t.message)
+            }
 
+            override fun onResponse(
+                call: Call<PlanetarySystem>,
+                response: Response<PlanetarySystem>
+            ) {
+                var systemResponse = response.body()
+                if (systemResponse == null) {
+                    systemResponse = PlanetarySystem( "", "", "", 0.0, "")
+                }
+                callback.onPlanetarySystemResponse(systemResponse)
+            }
+
+        })
+    }
+
+    fun deletePlanetarySystemById(id: String, callback: PlanetarySystemListRepositoryCallback){
+        val call = api.deletePlanetarySystemById(id)
+        call.enqueue(object : Callback<Unit>{
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                callback.onPlanetarySystemError(t.message)
+            }
+
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                getPlanetarySystems(callback)
+            }
+
+        })
+    }
+
+    fun addPlanetarySystem(planetarySystem: PlanetarySystem, callback: PlanetarySystemRepositoryCallback) {
+        val call = api.addPlanetarySystem(planetarySystem)
+        call.enqueue(object : Callback<PlanetarySystem>{
+            override fun onFailure(call: Call<PlanetarySystem>, t: Throwable) {
+                callback.onPlanetarySystemError(t.message)
+            }
+
+            override fun onResponse(
+                call: Call<PlanetarySystem>,
+                response: Response<PlanetarySystem>
+            ) {
+                var systemResponse = response.body()
+                if (systemResponse == null) {
+                    systemResponse = PlanetarySystem( "", "", "", 0.0, "")
+                }
+                callback.onPlanetarySystemResponse(systemResponse)
+            }
+
+        })
+    }
+
+    fun updatePlanetarySystem(id: String, planetarySystem: PlanetarySystem, callback: RepositoryUpdateCallback) {
+        val call = api.updatePlanetarySystem(id, planetarySystem)
+        call.enqueue(object : Callback<PlanetarySystem>{
+            override fun onFailure(call: Call<PlanetarySystem>, t: Throwable) {
+                callback.onPlanetarySystemError(t.message)
+            }
+
+            override fun onResponse(
+                call: Call<PlanetarySystem>,
+                response: Response<PlanetarySystem>
+            ) {
+                callback.onPlanetarySystemResponse(response.message())
+            }
+
+        })
+    }
 
     interface PlanetarySystemListRepositoryCallback{
         fun onPlanetarySystemResponse(planetarySystems: List<PlanetarySystem>)
@@ -49,6 +121,15 @@ object PlanetarySystemRepository {
         fun onPlanetarySystemLoading()
     }
 
+    interface PlanetarySystemRepositoryCallback{
+        fun onPlanetarySystemResponse(planetarySystem: PlanetarySystem)
+        fun onPlanetarySystemError(msg: String?)
+        fun onPlanetarySystemLoading()
+    }
 
-
+    interface RepositoryUpdateCallback{
+        fun onPlanetarySystemResponse(msg: String?)
+        fun onPlanetarySystemError(msg: String?)
+        fun onPlanetarySystemLoading()
+    }
 }

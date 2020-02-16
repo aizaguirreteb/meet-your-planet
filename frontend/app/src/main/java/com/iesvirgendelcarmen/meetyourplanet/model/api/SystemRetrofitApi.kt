@@ -9,12 +9,19 @@ interface SystemRetrofitApi {
 
     //PLANETARY SYSTEM
 
-    @GET("systems")
+    @GET("api/systems")
     fun getAllPlanetarySystems() : Call<List<PlanetarySystem>>
 
-    @GET("systems/{id}")
-    fun getPlanetarySystemById(@Path("id") id: Int) : Call<PlanetarySystem>
+    @GET("api/systems/{id}")
+    fun getPlanetarySystemById(@Path("id") id: String) : Call<PlanetarySystem>
 
+    @DELETE("api/systems/{id}")
+    fun deletePlanetarySystemById(@Path("id") id: String) : Call<Unit>
 
+    @POST("api/systems")
+    fun addPlanetarySystem(@Body planetarySystem: PlanetarySystem) : Call<PlanetarySystem>
+
+    @PUT("api/systems/{id}")
+    fun updatePlanetarySystem(@Path("id") id: String, @Body planetarySystem: PlanetarySystem) : Call<PlanetarySystem>
 
 }
