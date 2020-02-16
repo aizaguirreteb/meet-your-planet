@@ -1,6 +1,7 @@
 package com.iesvirgendelcarmen.meetyourplanet.model
 
-data class Planet (val name: String,
+data class Planet (val _id: String,
+                   val name: String,
                    val category: String,
                    val orbitalPeriod: Double,
                    val mass: String,

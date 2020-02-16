@@ -96,4 +96,23 @@ class SystemViewModel : ViewModel(){
         })
     }
 
+    fun deletePlanetById(systemId: String, id: String) {
+        PlanetarySystemRepository.deletePlanetById(systemId,id,
+            object : PlanetarySystemRepository.PlanetsListRepositoryCallback{
+                override fun onPLanetsResponse(planets: List<Planet>) {
+                    planetsLiveData.value = Resource.success(planets)
+                }
+
+
+                override fun onPlanetsError(msg: String?) {
+                    planetsLiveData.value = Resource.error(msg.orEmpty(), emptyList())
+                }
+
+                override fun onPlanetsLoading() {
+
+                }
+
+            })
+    }
+
 }

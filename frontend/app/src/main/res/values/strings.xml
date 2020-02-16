@@ -8,6 +8,7 @@
     <string name="loadingSystems">Loading Systems…</string>
     <string name="deleting">Deleting</string>
     <string name="deleteSystemQuestion">Delete this planetary system?</string>
+    <string name="deletePlanetQuestion">Delete this planet?</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="auUnit">AU</string>
@@ -20,6 +21,7 @@
     <string name="edit_system">Update System</string>
     <string name="system_form_field_updating">Updating Planetary System...</string>
     <string name="whatToDoSystem">What would you do with this system?</string>
+    <string name="whatToDoPlanet">What would you do with this planet?</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
 </resources>

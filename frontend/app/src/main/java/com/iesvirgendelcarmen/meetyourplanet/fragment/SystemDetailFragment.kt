@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,8 +14,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.iesvirgendelcarmen.meetyourplanet.MainActivity
 import com.iesvirgendelcarmen.meetyourplanet.R
 import com.iesvirgendelcarmen.meetyourplanet.adapters.PlanetRecyclerAdapter
+import com.iesvirgendelcarmen.meetyourplanet.adapters.SystemRecyclerAdapter
+import com.iesvirgendelcarmen.meetyourplanet.model.Planet
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
 import com.iesvirgendelcarmen.meetyourplanet.model.Resource
 import com.iesvirgendelcarmen.meetyourplanet.model.SystemViewModel
@@ -47,7 +51,63 @@ class SystemDetailFragment(private val system: PlanetarySystem): Fragment() {
             .placeholder(R.drawable.placeholder)
             .into(imageViewSystemCoverDetail)
 
-        planetAdapter = PlanetRecyclerAdapter(emptyList())
+        val clickListener = object: PlanetRecyclerAdapter.OnItemClickListener{
+
+            override fun onClicked(planet: Planet) {
+                Toast.makeText(context,
+                    "${planet.name} + ${planet._id}",
+                    Toast.LENGTH_SHORT).show()
+                //(activity as MainActivity).changeFragment(SystemDetailFragment(planetarySystem))
+            }
+        }
+
+
+        val longClickListener = object : PlanetRecyclerAdapter.OnItemLongClickListener {
+
+
+            override fun onLongClicked(planet: Planet) {
+                val builderAction = AlertDialog.Builder(context!!)
+                builderAction.setMessage(getString(R.string.whatToDoPlanet))
+                    .setPositiveButton(
+                        getString(R.string.edit)
+                    ) { dialog, _ ->
+                        editPlanet(planet)
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton(
+                        getString(R.string.delete)
+                    ) { dialog, _ ->
+                        val builderDelete = AlertDialog.Builder(context!!)
+                        builderDelete.setMessage(getString(R.string.deletePlanetQuestion))
+                            .setPositiveButton(
+                                getString(R.string.yes)
+                            ) { dialog, _ ->
+                                Toast.makeText(
+                                    context,
+                                    "${getString(R.string.deleting)} ${planet.name}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                planetViewModel.deletePlanetById(system._id, planet._id)
+                                planetListObserver()
+                                dialog.dismiss()
+                            }
+                            .setNegativeButton(
+                                getString(R.string.cancel)
+                            ) { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                        builderDelete.create()
+                        builderDelete.show()
+                        dialog.dismiss()
+                    }
+                builderAction.create()
+                builderAction.show()
+            }
+        }
+
+
+            planetAdapter = PlanetRecyclerAdapter(emptyList(),clickListener, longClickListener)
+
         recyclerPlanets = view.findViewById<RecyclerView>(R.id.planetsRecyclerView).apply{
             adapter = planetAdapter
             layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
@@ -79,5 +139,15 @@ class SystemDetailFragment(private val system: PlanetarySystem): Fragment() {
                 }
             }
         })
+    }
+
+
+
+    fun editPlanet(planet: Planet) {
+        //val editPlanetFragment = SystemFormFragment()
+        //val args = Bundle()
+        //args.putParcelable("PLANET", planet)
+        //editPlanetFragment.arguments = args
+        //(activity as MainActivity).changeFragment(editPlanetFragment)
     }
 }

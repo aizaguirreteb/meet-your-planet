@@ -10,14 +10,14 @@ import com.bumptech.glide.Glide
 import com.iesvirgendelcarmen.meetyourplanet.R
 import com.iesvirgendelcarmen.meetyourplanet.model.Planet
 
-class PlanetRecyclerAdapter(var planets: List<Planet>) :
+class PlanetRecyclerAdapter(var planets: List<Planet>, val itemClickListener: OnItemClickListener,val itemLongClickListener: OnItemLongClickListener) :
     RecyclerView.Adapter<PlanetRecyclerAdapter.PlanetViewHolder>() {
 
     inner class PlanetViewHolder(view: View): RecyclerView.ViewHolder(view){
         var planetImage = view.findViewById<ImageView>(R.id.imagePlanet)
         var planetTitle = view.findViewById<TextView>(R.id.planetTitle)
 
-        fun bind(planet: Planet){
+        fun bind(planet: Planet, clickListener:OnItemClickListener, longClickListener: OnItemLongClickListener){
             planetTitle.text = planet.name
             Glide
                 .with(itemView.context)
@@ -25,6 +25,14 @@ class PlanetRecyclerAdapter(var planets: List<Planet>) :
                 .centerCrop()
                 .placeholder(R.drawable.placeholder)
                 .into(planetImage)
+
+            itemView.setOnClickListener{
+                clickListener.onClicked(planet)
+            }
+            itemView.setOnLongClickListener{
+                longClickListener.onLongClicked(planet)
+                true
+            }
         }
     }
 
@@ -38,7 +46,16 @@ class PlanetRecyclerAdapter(var planets: List<Planet>) :
 
     override fun onBindViewHolder(holder: PlanetViewHolder, position: Int) {
         val planet = planets[position]
-        holder.bind(planet)
+        holder.bind(planet,itemClickListener, itemLongClickListener)
     }
+
+
+    interface OnItemClickListener{
+        fun onClicked(planet: Planet)
+    }
+    interface OnItemLongClickListener{
+        fun onLongClicked(planet: Planet)
+    }
+
 
 }

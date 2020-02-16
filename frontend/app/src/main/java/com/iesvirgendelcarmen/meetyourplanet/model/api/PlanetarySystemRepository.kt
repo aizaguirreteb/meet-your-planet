@@ -134,6 +134,26 @@ object PlanetarySystemRepository {
         })
     }
 
+    fun deletePlanetById(systemId: String, id: String, callback: PlanetsListRepositoryCallback){
+        val call = api.deletePlanetById(id)
+        call.enqueue(object : Callback<Unit>{
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                callback.onPlanetsError(t.message)
+            }
+
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                getPlanetsBySystemId(systemId, callback)
+            }
+
+        })
+    }
+
+    interface PlanetRepositoryCallback{
+        fun onPlanetResponse(planet:Planet)
+        fun onPlanetError(msg: String?)
+        fun onPlanetLoading()
+    }
+
     interface PlanetsListRepositoryCallback {
         fun onPLanetsResponse(planets: List<Planet>)
         fun onPlanetsError(msg: String?)

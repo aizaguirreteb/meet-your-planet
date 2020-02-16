@@ -29,5 +29,8 @@ interface SystemRetrofitApi {
     @GET("api/systems/{id}/planets")
     fun getPlanetsBySystemId(@Path("id") id: String) : Call<List<Planet>>
 
+    @DELETE("api/planets/{id}")
+    fun deletePlanetById(@Path("id") id: String) : Call<Unit>
+
 
 }
