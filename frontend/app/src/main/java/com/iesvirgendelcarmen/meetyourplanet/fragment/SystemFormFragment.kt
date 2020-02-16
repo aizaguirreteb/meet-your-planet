@@ -67,7 +67,7 @@ class SystemFormFragment : Fragment() {
         return if (star == "" || constellation == "" || distance == 0.0 || star == "")
             PlanetarySystem("-1", "", "", 0.0, "")
         else
-            PlanetarySystem("0", star, constellation, distance, imageURL)
+            PlanetarySystem(planetarySystemEdit._id, star, constellation, distance, imageURL)
     }
 
     private fun addPlanetarySystem() {

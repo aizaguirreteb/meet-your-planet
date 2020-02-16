@@ -62,8 +62,8 @@ class SystemViewModel : ViewModel(){
 
     fun updatePlanetarySystem(id: String, planetarySystem: PlanetarySystem) {
         PlanetarySystemRepository.updatePlanetarySystem(id, planetarySystem,
-            object : PlanetarySystemRepository.PlanetarySystemRepositoryCallback {
-                override fun onPlanetarySystemResponse(planetarySystem: PlanetarySystem) {
+            object : PlanetarySystemRepository.RepositoryUpdateCallback {
+                override fun onPlanetarySystemResponse(msg: String?) {
 
                 }
 
