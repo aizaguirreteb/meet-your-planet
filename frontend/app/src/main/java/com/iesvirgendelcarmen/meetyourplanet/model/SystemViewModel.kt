@@ -9,6 +9,7 @@ import com.iesvirgendelcarmen.meetyourplanet.model.api.PlanetarySystemRepository
 class SystemViewModel : ViewModel(){
 
     val systemListLiveData = MutableLiveData<Resource<List<PlanetarySystem>>>()
+    val planetsLiveData = MutableLiveData<Resource<List<Planet>>>()
 
     fun getAllPlanetarySystems() {
         PlanetarySystemRepository.getPlanetarySystems(object : PlanetarySystemRepository.PlanetarySystemListRepositoryCallback{
@@ -75,6 +76,24 @@ class SystemViewModel : ViewModel(){
                 }
 
             })
+    }
+
+    fun getAllPlanetsBySystemId(id: String){
+        PlanetarySystemRepository.getPlanetsBySystemId(id, object : PlanetarySystemRepository.PlanetsListRepositoryCallback{
+            override fun onPLanetsResponse(planets: List<Planet>) {
+                planetsLiveData.value = Resource.success(planets)
+            }
+
+            override fun onPlanetsError(msg: String?) {
+                planetsLiveData.value = Resource.error(msg.orEmpty(), emptyList())
+            }
+
+            override fun onPlanetsLoading() {
+
+            }
+
+
+        })
     }
 
 }

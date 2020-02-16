@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="6dp"
+    android:elevation="10dp"
+    android:layout_marginBottom="10dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="#B4D3CF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/primaryLightColor"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imagePlanet"
+            android:layout_width="match_parent"
+            android:layout_height="157dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+
+            />
+
+        <TextView
+            android:id="@+id/planetTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="24sp"
+            android:textStyle="bold"
+             />
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

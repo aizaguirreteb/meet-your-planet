@@ -1,6 +1,7 @@
 package com.iesvirgendelcarmen.meetyourplanet.model.api
 
 import com.iesvirgendelcarmen.meetyourplanet.config.ApiConfig
+import com.iesvirgendelcarmen.meetyourplanet.model.Planet
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
 import retrofit2.Call
 import retrofit2.Callback
@@ -113,6 +114,30 @@ object PlanetarySystemRepository {
             }
 
         })
+    }
+
+    //PLANETS
+
+    fun getPlanetsBySystemId(id: String, callback: PlanetsListRepositoryCallback){
+        callback.onPlanetsLoading()
+        val call = api.getPlanetsBySystemId(id)
+        call.enqueue(object : Callback<List<Planet>> {
+            override fun onFailure(call: Call<List<Planet>>, t: Throwable) {
+                callback.onPlanetsError(t.message)
+            }
+
+            override fun onResponse(call: Call<List<Planet>>, response: Response<List<Planet>>) {
+                var planetsResponse = response.body().orEmpty()
+                callback.onPLanetsResponse(planetsResponse)
+            }
+
+        })
+    }
+
+    interface PlanetsListRepositoryCallback {
+        fun onPLanetsResponse(planets: List<Planet>)
+        fun onPlanetsError(msg: String?)
+        fun onPlanetsLoading()
     }
 
     interface PlanetarySystemListRepositoryCallback{
