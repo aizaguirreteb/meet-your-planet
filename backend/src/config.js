@@ -1,6 +1,6 @@
 const config = {
     port: process.env.PORT || 4444,
-    mongoDBURL: 'mongodb://172.17.0.2/dbPlanetary'
+    mongoDBURL: 'mongodb://mongo:27017/dbPlanetary'
 }
 
 module.exports = config
