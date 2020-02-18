@@ -1,4 +1,5 @@
 const systemsModel = require('../model/systems')
+const planetsController = require('./planets')
 
 module.exports = {
     getSystems: (req, res) => {
@@ -34,7 +35,10 @@ module.exports = {
     deleteSystemById: (req, res) => {
         systemsModel.findOneAndDelete({ _id: req.params.id }, (err, result) => {
             if (err) res.status(404).json(err)
-            res.send(result)
+            planetsController.findAndDeletePlanetsBySystemId(req.params.id,(err, success)=>{
+                if (err) res.status(500).json(err)
+            })   
+            res.send(result)        
         })
     }
 }
