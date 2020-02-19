@@ -115,4 +115,36 @@ class SystemViewModel : ViewModel(){
             })
     }
 
+    fun addPlanet(planet: Planet) {
+        PlanetarySystemRepository.addPlanet(planet,
+            object : PlanetarySystemRepository.PlanetRepositoryCallback {
+                override fun onPlanetResponse(planet: Planet){
+                }
+
+                override fun onPlanetError(msg: String?) {
+                    systemListLiveData.value = Resource.error(msg.orEmpty(), emptyList())
+                }
+
+                override fun onPlanetLoading() {
+                }
+
+            })
+    }
+
+    fun updatePlanet(id: String, planet: Planet) {
+        PlanetarySystemRepository.updatePlanet(id, planet,
+            object : PlanetarySystemRepository.RepositoryUpdateCallback {
+                override fun onPlanetarySystemResponse(msg: String?) {
+
+                }
+
+                override fun onPlanetarySystemError(msg: String?) {
+                    systemListLiveData.value = Resource.error(msg.orEmpty(), emptyList())
+                }
+
+                override fun onPlanetarySystemLoading() {
+                }
+
+            })
+    }
 }

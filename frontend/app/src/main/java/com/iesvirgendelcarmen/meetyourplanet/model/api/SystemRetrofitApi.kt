@@ -32,5 +32,11 @@ interface SystemRetrofitApi {
     @DELETE("api/planets/{id}")
     fun deletePlanetById(@Path("id") id: String) : Call<Unit>
 
+    @POST("api/planets")
+    fun addPlanet(@Body planet: Planet) : Call<Planet>
+
+    @PUT("api/planets/{id}")
+    fun updatePlanet(@Path("id") id: String, @Body planet: Planet) : Call<Planet>
+
 
 }

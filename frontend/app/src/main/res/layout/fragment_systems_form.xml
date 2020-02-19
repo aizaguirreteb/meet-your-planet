@@ -9,6 +9,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="10dp"
     android:background="@color/primaryColor">
 
     <EditText
@@ -87,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/etFormDistance"
+        android:id="@+id/etFormOrbitalPeriod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -101,19 +102,19 @@
         app:layout_constraintTop_toBottomOf="@+id/etFormConstellation" />
 
     <TextView
-        android:id="@+id/tvFormDistance"
+        android:id="@+id/tvFormOrbitalPeriod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/distance"
         android:textColor="@color/primaryTextColor"
-        app:layout_constraintBaseline_toBaselineOf="@+id/etFormDistance"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etFormOrbitalPeriod"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/etFormImageURL"
+        android:id="@+id/etFormPlanetImageURL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -124,17 +125,17 @@
         android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/etFormDistance" />
+        app:layout_constraintTop_toBottomOf="@+id/etFormOrbitalPeriod" />
 
     <TextView
-        android:id="@+id/tvFormImageURL"
+        android:id="@+id/tvFormPlanetImageURL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/image_url"
         android:textColor="@color/primaryTextColor"
-        app:layout_constraintBaseline_toBaselineOf="@+id/etFormImageURL"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etFormPlanetImageURL"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -149,7 +150,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFormImageURL"
+        app:layout_constraintTop_toBottomOf="@+id/etFormPlanetImageURL"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

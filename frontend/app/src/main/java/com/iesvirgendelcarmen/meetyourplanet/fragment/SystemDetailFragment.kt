@@ -2,9 +2,7 @@ package com.iesvirgendelcarmen.meetyourplanet.fragment
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -105,6 +103,10 @@ class SystemDetailFragment(private val system: PlanetarySystem): Fragment() {
             }
         }
 
+        fabAddPlanet.setOnClickListener {
+            (activity as MainActivity).changeFragment(PlanetsFormFragment(system._id))
+        }
+
 
             planetAdapter = PlanetRecyclerAdapter(emptyList(),clickListener, longClickListener)
 
@@ -143,11 +145,12 @@ class SystemDetailFragment(private val system: PlanetarySystem): Fragment() {
 
 
 
+
     fun editPlanet(planet: Planet) {
-        //val editPlanetFragment = SystemFormFragment()
-        //val args = Bundle()
-        //args.putParcelable("PLANET", planet)
-        //editPlanetFragment.arguments = args
-        //(activity as MainActivity).changeFragment(editPlanetFragment)
+        val editPlanetFragment = PlanetsFormFragment(system._id)
+        val args = Bundle()
+        args.putParcelable("PLANET", planet)
+        editPlanetFragment.arguments = args
+        (activity as MainActivity).changeFragment(editPlanetFragment)
     }
 }

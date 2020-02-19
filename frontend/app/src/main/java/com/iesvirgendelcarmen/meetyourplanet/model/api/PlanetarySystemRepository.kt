@@ -148,6 +148,46 @@ object PlanetarySystemRepository {
         })
     }
 
+    fun addPlanet(planet: Planet, callback: PlanetRepositoryCallback) {
+        val call = api.addPlanet(planet)
+        call.enqueue(object : Callback<Planet>{
+            override fun onFailure(call: Call<Planet>, t: Throwable) {
+                callback.onPlanetError(t.message)
+            }
+
+            override fun onResponse(
+                call: Call<Planet>,
+                response: Response<Planet>
+            ) {
+                var systemResponse = response.body()
+                if (systemResponse == null) {
+                    systemResponse = Planet( "", "", "", 0.0, "", 0,
+                        0, "", "", "", "")
+                }
+                callback.onPlanetResponse(systemResponse)
+            }
+
+        })
+    }
+
+    fun updatePlanet(id: String, planet: Planet, callback: RepositoryUpdateCallback) {
+        val call = api.updatePlanet(id, planet)
+        call.enqueue(object : Callback<Planet>{
+            override fun onFailure(call: Call<Planet>, t: Throwable) {
+                callback.onPlanetarySystemError(t.message)
+            }
+
+            override fun onResponse(
+                call: Call<Planet>,
+                response: Response<Planet>
+            ) {
+                callback.onPlanetarySystemResponse(response.message())
+            }
+
+        })
+    }
+
+
     interface PlanetRepositoryCallback{
         fun onPlanetResponse(planet:Planet)
         fun onPlanetError(msg: String?)
