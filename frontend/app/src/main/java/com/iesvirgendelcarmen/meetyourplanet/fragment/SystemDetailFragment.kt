@@ -57,7 +57,7 @@ class SystemDetailFragment(private val system: PlanetarySystem): Fragment() {
                 Toast.makeText(context,
                     "${planet.name} + ${planet._id}",
                     Toast.LENGTH_SHORT).show()
-                //(activity as MainActivity).changeFragment(SystemDetailFragment(planetarySystem))
+                (activity as MainActivity).changeFragment(PlanetDetailFragment(planet))
             }
         }
 
