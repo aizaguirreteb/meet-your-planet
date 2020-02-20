@@ -54,20 +54,23 @@ class SystemFormFragment : Fragment() {
     private fun setFields() {
         etFormStar.setText(planetarySystemEdit.star)
         etFormConstellation.setText(planetarySystemEdit.constellation)
-        etFormDistance.setText(planetarySystemEdit.distanceFromEarth.toString())
-        etFormImageURL.setText(planetarySystemEdit.imageURL)
+        etFormOrbitalPeriod.setText(planetarySystemEdit.distanceFromEarth.toString())
+        etFormPlanetImageURL.setText(planetarySystemEdit.imageURL)
     }
 
     private fun getPlanetarySystem() : PlanetarySystem {
         val star = etFormStar.text.toString()
         val constellation = etFormConstellation.text.toString()
-        val distance = etFormDistance.text.toString().toDouble()
-        val imageURL = etFormImageURL.text.toString()
+        val distance = etFormOrbitalPeriod.text.toString().toDouble()
+        val imageURL = etFormPlanetImageURL.text.toString()
 
         return if (star == "" || constellation == "" || distance == 0.0 || star == "")
             PlanetarySystem("-1", "", "", 0.0, "")
         else
-            PlanetarySystem(planetarySystemEdit._id, star, constellation, distance, imageURL)
+            if (inEditMode)
+                PlanetarySystem(planetarySystemEdit._id, star, constellation, distance, imageURL)
+            else
+                PlanetarySystem("0", star, constellation, distance, imageURL)
     }
 
     private fun addPlanetarySystem() {

@@ -1,6 +1,11 @@
 package com.iesvirgendelcarmen.meetyourplanet.model
 
-data class Planet (val name: String,
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Planet (val _id: String,
+                   val name: String,
                    val category: String,
                    val orbitalPeriod: Double,
                    val mass: String,
@@ -8,4 +13,5 @@ data class Planet (val name: String,
                    val numberSatellites: Int,
                    val gravity: String,
                    val surface: String,
-                   val planetImage: String)
+                   val planetImage: String,
+                   val systemId: String) : Parcelable

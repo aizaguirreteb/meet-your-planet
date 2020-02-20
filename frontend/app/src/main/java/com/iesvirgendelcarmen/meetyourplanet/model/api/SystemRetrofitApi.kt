@@ -24,4 +24,19 @@ interface SystemRetrofitApi {
     @PUT("api/systems/{id}")
     fun updatePlanetarySystem(@Path("id") id: String, @Body planetarySystem: PlanetarySystem) : Call<PlanetarySystem>
 
+    //PLANETS
+
+    @GET("api/systems/{id}/planets")
+    fun getPlanetsBySystemId(@Path("id") id: String) : Call<List<Planet>>
+
+    @DELETE("api/planets/{id}")
+    fun deletePlanetById(@Path("id") id: String) : Call<Unit>
+
+    @POST("api/planets")
+    fun addPlanet(@Body planet: Planet) : Call<Planet>
+
+    @PUT("api/planets/{id}")
+    fun updatePlanet(@Path("id") id: String, @Body planet: Planet) : Call<Planet>
+
+
 }

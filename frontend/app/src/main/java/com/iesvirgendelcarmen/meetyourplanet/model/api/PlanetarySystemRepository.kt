@@ -1,6 +1,7 @@
 package com.iesvirgendelcarmen.meetyourplanet.model.api
 
 import com.iesvirgendelcarmen.meetyourplanet.config.ApiConfig
+import com.iesvirgendelcarmen.meetyourplanet.model.Planet
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
 import retrofit2.Call
 import retrofit2.Callback
@@ -113,6 +114,90 @@ object PlanetarySystemRepository {
             }
 
         })
+    }
+
+    //PLANETS
+
+    fun getPlanetsBySystemId(id: String, callback: PlanetsListRepositoryCallback){
+        callback.onPlanetsLoading()
+        val call = api.getPlanetsBySystemId(id)
+        call.enqueue(object : Callback<List<Planet>> {
+            override fun onFailure(call: Call<List<Planet>>, t: Throwable) {
+                callback.onPlanetsError(t.message)
+            }
+
+            override fun onResponse(call: Call<List<Planet>>, response: Response<List<Planet>>) {
+                var planetsResponse = response.body().orEmpty()
+                callback.onPLanetsResponse(planetsResponse)
+            }
+
+        })
+    }
+
+    fun deletePlanetById(systemId: String, id: String, callback: PlanetsListRepositoryCallback){
+        val call = api.deletePlanetById(id)
+        call.enqueue(object : Callback<Unit>{
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                callback.onPlanetsError(t.message)
+            }
+
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                getPlanetsBySystemId(systemId, callback)
+            }
+
+        })
+    }
+
+    fun addPlanet(planet: Planet, callback: PlanetRepositoryCallback) {
+        val call = api.addPlanet(planet)
+        call.enqueue(object : Callback<Planet>{
+            override fun onFailure(call: Call<Planet>, t: Throwable) {
+                callback.onPlanetError(t.message)
+            }
+
+            override fun onResponse(
+                call: Call<Planet>,
+                response: Response<Planet>
+            ) {
+                var systemResponse = response.body()
+                if (systemResponse == null) {
+                    systemResponse = Planet( "", "", "", 0.0, "", 0,
+                        0, "", "", "", "")
+                }
+                callback.onPlanetResponse(systemResponse)
+            }
+
+        })
+    }
+
+    fun updatePlanet(id: String, planet: Planet, callback: RepositoryUpdateCallback) {
+        val call = api.updatePlanet(id, planet)
+        call.enqueue(object : Callback<Planet>{
+            override fun onFailure(call: Call<Planet>, t: Throwable) {
+                callback.onPlanetarySystemError(t.message)
+            }
+
+            override fun onResponse(
+                call: Call<Planet>,
+                response: Response<Planet>
+            ) {
+                callback.onPlanetarySystemResponse(response.message())
+            }
+
+        })
+    }
+
+
+    interface PlanetRepositoryCallback{
+        fun onPlanetResponse(planet:Planet)
+        fun onPlanetError(msg: String?)
+        fun onPlanetLoading()
+    }
+
+    interface PlanetsListRepositoryCallback {
+        fun onPLanetsResponse(planets: List<Planet>)
+        fun onPlanetsError(msg: String?)
+        fun onPlanetsLoading()
     }
 
     interface PlanetarySystemListRepositoryCallback{

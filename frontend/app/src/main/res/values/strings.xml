@@ -8,6 +8,7 @@
     <string name="loadingSystems">Loading Systems…</string>
     <string name="deleting">Deleting</string>
     <string name="deleteSystemQuestion">Delete this planetary system?</string>
+    <string name="deletePlanetQuestion">Delete this planet?</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="auUnit">AU</string>
@@ -17,9 +18,26 @@
     <string name="add_system">Add System</string>
     <string name="system_form_field_error">There are non valid fields!</string>
     <string name="system_form_field_adding">Adding System...</string>
+    <string name="planet_form_field_adding">Adding Planet...</string>
     <string name="edit_system">Update System</string>
     <string name="system_form_field_updating">Updating Planetary System...</string>
     <string name="whatToDoSystem">What would you do with this system?</string>
+    <string name="whatToDoPlanet">What would you do with this planet?</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="planets_form_main_title">Planets form</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="planet_detail_title">Planet</string>
+    <string name="category">Category:</string>
+    <string name="planet_name">Name:</string>
+    <string name="orbital_period">Orbital Period:</string>
+    <string name="mass">Mass:</string>
+    <string name="temperature">Temperature:</string>
+    <string name="satellites">Satellites:</string>
+    <string name="gravity">Gravity:</string>
+    <string name="surface">Surface:</string>
+    <string name="add_planet">Add Planet</string>
+    <string name="update_planet">Update Planet:</string>
 </resources>

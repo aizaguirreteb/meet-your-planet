@@ -9,6 +9,7 @@ import com.iesvirgendelcarmen.meetyourplanet.model.api.PlanetarySystemRepository
 class SystemViewModel : ViewModel(){
 
     val systemListLiveData = MutableLiveData<Resource<List<PlanetarySystem>>>()
+    val planetsLiveData = MutableLiveData<Resource<List<Planet>>>()
 
     fun getAllPlanetarySystems() {
         PlanetarySystemRepository.getPlanetarySystems(object : PlanetarySystemRepository.PlanetarySystemListRepositoryCallback{
@@ -77,4 +78,73 @@ class SystemViewModel : ViewModel(){
             })
     }
 
+    fun getAllPlanetsBySystemId(id: String){
+        PlanetarySystemRepository.getPlanetsBySystemId(id, object : PlanetarySystemRepository.PlanetsListRepositoryCallback{
+            override fun onPLanetsResponse(planets: List<Planet>) {
+                planetsLiveData.value = Resource.success(planets)
+            }
+
+            override fun onPlanetsError(msg: String?) {
+                planetsLiveData.value = Resource.error(msg.orEmpty(), emptyList())
+            }
+
+            override fun onPlanetsLoading() {
+
+            }
+
+
+        })
+    }
+
+    fun deletePlanetById(systemId: String, id: String) {
+        PlanetarySystemRepository.deletePlanetById(systemId,id,
+            object : PlanetarySystemRepository.PlanetsListRepositoryCallback{
+                override fun onPLanetsResponse(planets: List<Planet>) {
+                    planetsLiveData.value = Resource.success(planets)
+                }
+
+
+                override fun onPlanetsError(msg: String?) {
+                    planetsLiveData.value = Resource.error(msg.orEmpty(), emptyList())
+                }
+
+                override fun onPlanetsLoading() {
+
+                }
+
+            })
+    }
+
+    fun addPlanet(planet: Planet) {
+        PlanetarySystemRepository.addPlanet(planet,
+            object : PlanetarySystemRepository.PlanetRepositoryCallback {
+                override fun onPlanetResponse(planet: Planet){
+                }
+
+                override fun onPlanetError(msg: String?) {
+                    systemListLiveData.value = Resource.error(msg.orEmpty(), emptyList())
+                }
+
+                override fun onPlanetLoading() {
+                }
+
+            })
+    }
+
+    fun updatePlanet(id: String, planet: Planet) {
+        PlanetarySystemRepository.updatePlanet(id, planet,
+            object : PlanetarySystemRepository.RepositoryUpdateCallback {
+                override fun onPlanetarySystemResponse(msg: String?) {
+
+                }
+
+                override fun onPlanetarySystemError(msg: String?) {
+                    systemListLiveData.value = Resource.error(msg.orEmpty(), emptyList())
+                }
+
+                override fun onPlanetarySystemLoading() {
+                }
+
+            })
+    }
 }
