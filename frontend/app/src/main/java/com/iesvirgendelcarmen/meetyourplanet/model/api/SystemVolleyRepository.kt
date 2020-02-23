@@ -9,6 +9,7 @@ import com.google.gson.Gson
 import com.iesvirgendelcarmen.meetyourplanet.config.ApiConfig
 import com.iesvirgendelcarmen.meetyourplanet.model.Planet
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
+import com.iesvirgendelcarmen.meetyourplanet.model.User
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -255,6 +256,29 @@ object SystemVolleyRepository : PlanetarySystemsApi {
         VolleySingleton.getInstance().addToRequestQueue(stringRequest)
     }
 
+    override fun login(user: User, callback: PlanetarySystemRepository.UserRepositoryCallback) {
+        var jsonObj = JSONObject()
+        jsonObj.put("email", user.email)
+        jsonObj.put("password", user.password)
+
+        VolleySingleton.getInstance().requestQueue
+
+        val stringRequest = JsonObjectRequest(
+            Request.Method.POST,
+            ApiConfig.API_URL_BASE + "api/login",
+            jsonObj,
+            Response.Listener {
+                    response ->
+                callback.onUserResponse(parseSystem(response.toString()))
+            },
+            Response.ErrorListener {
+                    error ->
+                callback.onUserError(error.message)
+            }
+
+        )
+
+        VolleySingleton.getInstance().addToRequestQueue(stringRequest)    }
 
 
     fun parseSystem(response: String?): PlanetarySystem {

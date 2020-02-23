@@ -2,6 +2,7 @@ package com.iesvirgendelcarmen.meetyourplanet.model.api
 
 import com.iesvirgendelcarmen.meetyourplanet.model.Planet
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
+import com.iesvirgendelcarmen.meetyourplanet.model.User
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -37,6 +38,10 @@ interface SystemRetrofitApi {
 
     @PUT("api/planets/{id}")
     fun updatePlanet(@Path("id") id: String, @Body planet: Planet) : Call<Planet>
+
+    //USERS
+    @POST("api/login")
+    fun login(@Body user: User) : Call<Any>
 
 
 }

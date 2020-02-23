@@ -1,8 +1,10 @@
 package com.iesvirgendelcarmen.meetyourplanet.model.api
 
+import android.util.Log
 import com.iesvirgendelcarmen.meetyourplanet.config.ApiConfig
 import com.iesvirgendelcarmen.meetyourplanet.model.Planet
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
+import com.iesvirgendelcarmen.meetyourplanet.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -187,6 +189,22 @@ object PlanetarySystemRepository : PlanetarySystemsApi{
         })
     }
 
+    //USERS
+
+    override fun login(user: User, callback: UserRepositoryCallback) {
+        val call = api.login(user)
+        call.enqueue(object: Callback<Any> {
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                Log.d("LOGIN!!", response.body().toString())
+            }
+
+        })
+    }
+
 
     interface PlanetRepositoryCallback{
         fun onPlanetResponse(planet:Planet)
@@ -216,5 +234,11 @@ object PlanetarySystemRepository : PlanetarySystemsApi{
         fun onPlanetarySystemResponse(msg: String?)
         fun onPlanetarySystemError(msg: String?)
         fun onPlanetarySystemLoading()
+    }
+
+    interface UserRepositoryCallback {
+        fun onUserResponse(obj: Any)
+        fun onUserError(msg: String?)
+        fun onUserLoading()
     }
 }

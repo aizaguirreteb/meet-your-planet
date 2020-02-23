@@ -1,5 +1,6 @@
 package com.iesvirgendelcarmen.meetyourplanet.model
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.iesvirgendelcarmen.meetyourplanet.model.api.PlanetarySystemRepository
@@ -144,5 +145,21 @@ class SystemViewModel : ViewModel(){
                 }
 
             })
+    }
+
+    fun login(user: User){
+        PlanetarySystemRepository.login(user, object : PlanetarySystemRepository.UserRepositoryCallback {
+            override fun onUserResponse(obj: Any) {
+                Log.d("VM R", obj.toString())
+            }
+
+            override fun onUserError(msg: String?) {
+                Log.d("VM E", msg.orEmpty())
+            }
+
+            override fun onUserLoading() {
+            }
+
+        })
     }
 }

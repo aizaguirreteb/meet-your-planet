@@ -2,6 +2,7 @@ package com.iesvirgendelcarmen.meetyourplanet.model.api
 
 import com.iesvirgendelcarmen.meetyourplanet.model.Planet
 import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
+import com.iesvirgendelcarmen.meetyourplanet.model.User
 
 interface PlanetarySystemsApi {
 
@@ -24,7 +25,10 @@ interface PlanetarySystemsApi {
 
     fun updatePlanet(id: String, planet: Planet, callback: PlanetarySystemRepository.RepositoryUpdateCallback)
 
-
     fun addPlanet(planet: Planet, callback: PlanetarySystemRepository.PlanetRepositoryCallback)
+
+    //USERS
+
+    fun login(user: User, callback: PlanetarySystemRepository.UserRepositoryCallback)
 
 }

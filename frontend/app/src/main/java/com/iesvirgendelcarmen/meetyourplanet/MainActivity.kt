@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.iesvirgendelcarmen.meetyourplanet.fragment.HomeFragment
+import com.iesvirgendelcarmen.meetyourplanet.fragment.LoginFragment
 import com.iesvirgendelcarmen.meetyourplanet.fragment.SystemsListFragment
 
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
 
     private val listFragment: SystemsListFragment = SystemsListFragment()
     private val homeFragment: HomeFragment = HomeFragment()
+    private val loginFragment: LoginFragment = LoginFragment()
     lateinit var drawerLayout: DrawerLayout
     lateinit var navigationView: NavigationView
 
@@ -77,7 +79,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.nav_logino -> {
-                Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show()
+                changeFragment(loginFragment)
             }
             R.id.nav_systems -> {
                 changeFragment(listFragment)
