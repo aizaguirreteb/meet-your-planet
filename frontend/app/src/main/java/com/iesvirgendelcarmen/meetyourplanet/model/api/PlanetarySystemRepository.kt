@@ -9,7 +9,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object PlanetarySystemRepository {
+object PlanetarySystemRepository : PlanetarySystemsApi{
 
     private val api : SystemRetrofitApi
 
@@ -23,7 +23,7 @@ object PlanetarySystemRepository {
 
     }
 
-    fun getPlanetarySystems(callback: PlanetarySystemListRepositoryCallback){
+    override fun getPlanetarySystems(callback: PlanetarySystemListRepositoryCallback){
         callback.onPlanetarySystemLoading()
         val call = api.getAllPlanetarySystems()
         call.enqueue(object: Callback<List<PlanetarySystem>>{
@@ -64,7 +64,7 @@ object PlanetarySystemRepository {
         })
     }
 
-    fun deletePlanetarySystemById(id: String, callback: PlanetarySystemListRepositoryCallback){
+    override fun deletePlanetarySystemById(id: String, callback: PlanetarySystemListRepositoryCallback){
         val call = api.deletePlanetarySystemById(id)
         call.enqueue(object : Callback<Unit>{
             override fun onFailure(call: Call<Unit>, t: Throwable) {
@@ -78,7 +78,7 @@ object PlanetarySystemRepository {
         })
     }
 
-    fun addPlanetarySystem(planetarySystem: PlanetarySystem, callback: PlanetarySystemRepositoryCallback) {
+    override fun addPlanetarySystem(planetarySystem: PlanetarySystem, callback: PlanetarySystemRepositoryCallback) {
         val call = api.addPlanetarySystem(planetarySystem)
         call.enqueue(object : Callback<PlanetarySystem>{
             override fun onFailure(call: Call<PlanetarySystem>, t: Throwable) {
@@ -99,7 +99,7 @@ object PlanetarySystemRepository {
         })
     }
 
-    fun updatePlanetarySystem(id: String, planetarySystem: PlanetarySystem, callback: RepositoryUpdateCallback) {
+    override fun updatePlanetarySystem(id: String, planetarySystem: PlanetarySystem, callback: RepositoryUpdateCallback) {
         val call = api.updatePlanetarySystem(id, planetarySystem)
         call.enqueue(object : Callback<PlanetarySystem>{
             override fun onFailure(call: Call<PlanetarySystem>, t: Throwable) {
@@ -118,7 +118,7 @@ object PlanetarySystemRepository {
 
     //PLANETS
 
-    fun getPlanetsBySystemId(id: String, callback: PlanetsListRepositoryCallback){
+    override fun getPlanetsBySystemId(id: String, callback: PlanetsListRepositoryCallback){
         callback.onPlanetsLoading()
         val call = api.getPlanetsBySystemId(id)
         call.enqueue(object : Callback<List<Planet>> {
@@ -134,7 +134,7 @@ object PlanetarySystemRepository {
         })
     }
 
-    fun deletePlanetById(systemId: String, id: String, callback: PlanetsListRepositoryCallback){
+    override fun deletePlanetById(systemId: String, id: String, callback: PlanetsListRepositoryCallback){
         val call = api.deletePlanetById(id)
         call.enqueue(object : Callback<Unit>{
             override fun onFailure(call: Call<Unit>, t: Throwable) {
@@ -148,7 +148,7 @@ object PlanetarySystemRepository {
         })
     }
 
-    fun addPlanet(planet: Planet, callback: PlanetRepositoryCallback) {
+    override fun addPlanet(planet: Planet, callback: PlanetRepositoryCallback) {
         val call = api.addPlanet(planet)
         call.enqueue(object : Callback<Planet>{
             override fun onFailure(call: Call<Planet>, t: Throwable) {
@@ -170,7 +170,7 @@ object PlanetarySystemRepository {
         })
     }
 
-    fun updatePlanet(id: String, planet: Planet, callback: RepositoryUpdateCallback) {
+    override fun updatePlanet(id: String, planet: Planet, callback: RepositoryUpdateCallback) {
         val call = api.updatePlanet(id, planet)
         call.enqueue(object : Callback<Planet>{
             override fun onFailure(call: Call<Planet>, t: Throwable) {

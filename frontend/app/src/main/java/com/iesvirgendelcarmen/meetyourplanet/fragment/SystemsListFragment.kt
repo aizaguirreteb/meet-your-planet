@@ -20,6 +20,7 @@ import com.iesvirgendelcarmen.meetyourplanet.model.PlanetarySystem
 import com.iesvirgendelcarmen.meetyourplanet.model.Resource
 import com.iesvirgendelcarmen.meetyourplanet.model.SystemViewModel
 import kotlinx.android.synthetic.main.fragment_systems_list.*
+import java.nio.BufferUnderflowException
 
 
 class SystemsListFragment : Fragment() {
@@ -46,7 +47,13 @@ class SystemsListFragment : Fragment() {
                 Toast.makeText(context,
                     "${planetarySystem.star} + ${planetarySystem._id}",
                     Toast.LENGTH_SHORT).show()
-                (activity as MainActivity).changeFragment(SystemDetailFragment(planetarySystem))
+
+                val systemDetailFragment = SystemDetailFragment()
+                val args = Bundle()
+                args.putParcelable("SYSTEM_CLICKED", planetarySystem)
+                systemDetailFragment.arguments = args
+
+                (activity as MainActivity).changeFragment(systemDetailFragment)
             }
         }
 

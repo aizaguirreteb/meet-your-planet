@@ -14,7 +14,7 @@ import com.iesvirgendelcarmen.meetyourplanet.model.Planet
 import kotlinx.android.synthetic.main.fragment_planet_detail.*
 
 
-class PlanetDetailFragment(private val planet: Planet) : Fragment() {
+class PlanetDetailFragment() : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +24,7 @@ class PlanetDetailFragment(private val planet: Planet) : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        var planet = arguments!!.get("PLANET_CLICKED") as Planet
 
         textViewPlanetDetailTitle.text = planet.name
         textViewCategory.text = planet.category
