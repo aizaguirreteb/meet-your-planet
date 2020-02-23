@@ -89,7 +89,20 @@ object SystemVolleyRepository : PlanetarySystemsApi {
         id: String,
         callback: PlanetarySystemRepository.PlanetarySystemListRepositoryCallback
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        VolleySingleton.getInstance().requestQueue
+
+        val stringRequest = StringRequest(
+            Request.Method.DELETE,
+            ApiConfig.API_URL_BASE + "api/systems/${id}",
+            Response.Listener {
+                getPlanetarySystems(callback)
+            },
+            Response.ErrorListener {
+                    error -> callback.onPlanetarySystemError(error.message)
+            }
+        )
+
+        VolleySingleton.getInstance().addToRequestQueue(stringRequest)
     }
 
     override fun getPlanetsBySystemId(
@@ -129,7 +142,20 @@ object SystemVolleyRepository : PlanetarySystemsApi {
         id: String,
         callback: PlanetarySystemRepository.PlanetsListRepositoryCallback
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+         VolleySingleton.getInstance().requestQueue
+
+        val stringRequest = StringRequest(
+            Request.Method.DELETE,
+            ApiConfig.API_URL_BASE + "api/planets/${id}",
+            Response.Listener {
+                getPlanetsBySystemId(systemId, callback)
+            },
+            Response.ErrorListener {
+                error -> callback.onPlanetsError(error.message)
+            }
+        )
+
+        VolleySingleton.getInstance().addToRequestQueue(stringRequest)
     }
 
     override fun updatePlanet(
@@ -176,6 +202,8 @@ object SystemVolleyRepository : PlanetarySystemsApi {
 
         VolleySingleton.getInstance().addToRequestQueue(stringRequest)
     }
+
+
 
     fun parseSystem(response: String?): PlanetarySystem {
         var system = PlanetarySystem("","","",0.0,"")
