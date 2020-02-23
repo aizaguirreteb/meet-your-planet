@@ -4,8 +4,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class PlanetarySystem (val _id: String,
-                            val star: String,
-                            val constellation: String,
-                            val distanceFromEarth: Double,
-                            val imageURL: String) : Parcelable
+data class PlanetarySystem (var _id: String,
+                            var star: String,
+                            var constellation: String,
+                            var distanceFromEarth: Double,
+                            var imageURL: String) : Parcelable

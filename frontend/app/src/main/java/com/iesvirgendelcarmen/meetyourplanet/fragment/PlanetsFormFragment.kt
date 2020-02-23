@@ -19,9 +19,10 @@ import kotlinx.android.synthetic.main.fragment_planets_form.etFormOrbitalPeriod
 import kotlinx.android.synthetic.main.fragment_planets_form.etFormPlanetImageURL
 import kotlinx.android.synthetic.main.fragment_systems_form.*
 
-class PlanetsFormFragment(private val systemId: String) : Fragment() {
+class PlanetsFormFragment() : Fragment() {
 
     val surfaceArray = arrayOf("Gas", "Liquid", "Solida", "Mixed", "Unknown")
+    lateinit var systemId : String
 
     private val viewModel: SystemViewModel by lazy {
         ViewModelProviders.of(this).get(SystemViewModel::class.java)
@@ -40,8 +41,11 @@ class PlanetsFormFragment(private val systemId: String) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         if (arguments != null) {
-            planetEdit = arguments!!.get("PLANET") as Planet
-            inEditPlanetMode = true
+            if(arguments!!.get("PLANET") != null) {
+                planetEdit = arguments!!.get("PLANET") as Planet
+                inEditPlanetMode = true
+            }
+            systemId = arguments!!.getString("SYSTEM_ID") as String
         }
         return inflater.inflate(R.layout.fragment_planets_form, container, false)
     }

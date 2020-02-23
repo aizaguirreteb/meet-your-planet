@@ -4,14 +4,14 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Planet (val _id: String,
-                   val name: String,
-                   val category: String,
-                   val orbitalPeriod: Double,
-                   val mass: String,
-                   val equilibriumTemperature: Int,
-                   val numberSatellites: Int,
-                   val gravity: String,
-                   val surface: String,
-                   val planetImage: String,
-                   val systemId: String) : Parcelable
+data class Planet (var _id: String,
+                   var name: String,
+                   var category: String,
+                   var orbitalPeriod: Double,
+                   var mass: String,
+                   var equilibriumTemperature: Int,
+                   var numberSatellites: Int,
+                   var gravity: String,
+                   var surface: String,
+                   var planetImage: String,
+                   var systemId: String) : Parcelable

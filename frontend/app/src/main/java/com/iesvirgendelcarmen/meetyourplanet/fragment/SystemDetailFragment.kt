@@ -112,7 +112,11 @@ class SystemDetailFragment(): Fragment() {
         }
 
         fabAddPlanet.setOnClickListener {
-            (activity as MainActivity).changeFragment(PlanetsFormFragment(system._id))
+            val fragment = PlanetsFormFragment()
+            val args = Bundle()
+            args.putString("SYSTEM_ID", system._id)
+            fragment.arguments = args
+            (activity as MainActivity).changeFragment(fragment)
         }
 
 
@@ -155,7 +159,7 @@ class SystemDetailFragment(): Fragment() {
 
 
     fun editPlanet(planet: Planet) {
-        val editPlanetFragment = PlanetsFormFragment(system._id)
+        val editPlanetFragment = PlanetsFormFragment()
         val args = Bundle()
         args.putParcelable("PLANET", planet)
         editPlanetFragment.arguments = args
