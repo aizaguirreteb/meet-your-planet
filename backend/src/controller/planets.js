@@ -49,5 +49,20 @@ module.exports = {
             if (err) res.status(404).json(err)
             res.send(result)
         })
+    },
+
+    findAndDeletePlanetsBySystemId: (systemId) => {
+        planetsModel.find({systemId: systemId}, (err, result) => {
+            if(err) res.status(500).send(err)
+            else {
+                for(let planet of result){
+                    planetsModel.findOneAndDelete({_id: planet._id}, (err, result) => {
+                        if (err) res.status(404).json(err)
+                        //res.send(result)
+                    })
+                }
+            }
+        })     
+
     }
 }
