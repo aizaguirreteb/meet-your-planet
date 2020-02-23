@@ -22,7 +22,9 @@ import com.iesvirgendelcarmen.meetyourplanet.model.Resource
 import com.iesvirgendelcarmen.meetyourplanet.model.SystemViewModel
 import kotlinx.android.synthetic.main.fragment_systems_detail.*
 
-class SystemDetailFragment(private val system: PlanetarySystem): Fragment() {
+class SystemDetailFragment(): Fragment() {
+
+    lateinit var system: PlanetarySystem
 
     lateinit var recyclerPlanets: RecyclerView
     lateinit var planetAdapter: PlanetRecyclerAdapter
@@ -38,7 +40,8 @@ class SystemDetailFragment(private val system: PlanetarySystem): Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        system = arguments!!.get("SYSTEM_CLICKED") as PlanetarySystem
+
         textViewDetailTitle.text = system.star
         textViewConstellationDetailTitle.text = system.constellation
         textViewDistanceDetailTitle.text = "${system.distanceFromEarth} ${getString(R.string.auUnit)}"
@@ -55,7 +58,12 @@ class SystemDetailFragment(private val system: PlanetarySystem): Fragment() {
                 Toast.makeText(context,
                     "${planet.name} + ${planet._id}",
                     Toast.LENGTH_SHORT).show()
-                (activity as MainActivity).changeFragment(PlanetDetailFragment(planet))
+
+                val fragment = PlanetDetailFragment()
+                val args = Bundle()
+                args.putParcelable("PLANET_CLICKED", planet)
+                fragment.arguments = args
+                (activity as MainActivity).changeFragment(fragment)
             }
         }
 
