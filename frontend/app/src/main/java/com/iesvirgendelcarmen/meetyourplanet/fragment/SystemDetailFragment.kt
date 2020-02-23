@@ -112,11 +112,11 @@ class SystemDetailFragment(): Fragment() {
         }
 
         fabAddPlanet.setOnClickListener {
-            val fragment = PlanetsFormFragment()
+            val fragmentPlanetForm = PlanetsFormFragment()
             val args = Bundle()
             args.putString("SYSTEM_ID", system._id)
-            fragment.arguments = args
-            (activity as MainActivity).changeFragment(fragment)
+            fragmentPlanetForm.arguments = args
+            (activity as MainActivity).changeFragment(fragmentPlanetForm)
         }
 
 

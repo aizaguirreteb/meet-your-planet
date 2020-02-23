@@ -44,8 +44,9 @@ class PlanetsFormFragment() : Fragment() {
             if(arguments!!.get("PLANET") != null) {
                 planetEdit = arguments!!.get("PLANET") as Planet
                 inEditPlanetMode = true
+            } else {
+                systemId = arguments!!.getString("SYSTEM_ID") as String
             }
-            systemId = arguments!!.getString("SYSTEM_ID") as String
         }
         return inflater.inflate(R.layout.fragment_planets_form, container, false)
     }
@@ -107,9 +108,9 @@ class PlanetsFormFragment() : Fragment() {
                  "","", systemId)
                 else
                     if(inEditPlanetMode)
-                        Planet(planetEdit._id, name,category,orbitalPeriod,mass,temperature,satellites,gravity,surface,imagen, systemId)
+                        Planet(planetEdit._id, name,category,orbitalPeriod,mass,temperature,satellites,gravity,surface,imagen, planetEdit.systemId)
                     else
-                        Planet("0", name,category,orbitalPeriod,mass,temperature,satellites,gravity,surface,imagen, systemId)
+                        Planet("0", name,category,orbitalPeriod,mass,temperature,satellites,gravity,surface,imagen, planetEdit.systemId)
 
     }
 

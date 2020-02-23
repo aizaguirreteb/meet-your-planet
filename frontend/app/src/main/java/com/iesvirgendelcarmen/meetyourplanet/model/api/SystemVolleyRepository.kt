@@ -82,8 +82,31 @@ object SystemVolleyRepository : PlanetarySystemsApi {
         planetarySystem: PlanetarySystem,
         callback: PlanetarySystemRepository.RepositoryUpdateCallback
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+        var jsonObj = JSONObject()
+        jsonObj.put("_id", planetarySystem._id)
+        jsonObj.put("star", planetarySystem.star)
+        jsonObj.put("constellation", planetarySystem.constellation)
+        jsonObj.put("distanceFromEarth", planetarySystem.distanceFromEarth)
+        jsonObj.put("imageURL", planetarySystem.imageURL)
+
+        VolleySingleton.getInstance().requestQueue
+
+        val stringRequest = JsonObjectRequest(
+            Request.Method.PUT,
+            ApiConfig.API_URL_BASE + "api/systems/${id}",
+            jsonObj,
+            Response.Listener {
+                    response ->
+                callback.onPlanetarySystemResponse(response.toString())
+            },
+            Response.ErrorListener {
+                    error ->
+                callback.onPlanetarySystemError(error.message)
+            }
+
+        )
+
+        VolleySingleton.getInstance().addToRequestQueue(stringRequest)    }
 
     override fun deletePlanetarySystemById(
         id: String,
@@ -163,8 +186,37 @@ object SystemVolleyRepository : PlanetarySystemsApi {
         planet: Planet,
         callback: PlanetarySystemRepository.RepositoryUpdateCallback
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+        var jsonObj = JSONObject()
+        jsonObj.put("_id", planet._id)
+        jsonObj.put("name", planet.name)
+        jsonObj.put("category", planet.category)
+        jsonObj.put("orbitalPeriod", planet.orbitalPeriod)
+        jsonObj.put("mass", planet.mass)
+        jsonObj.put("equilibriumTemperature", planet.equilibriumTemperature)
+        jsonObj.put("numberSatellites", planet.numberSatellites)
+        jsonObj.put("gravity", planet.gravity)
+        jsonObj.put("surface", planet.surface)
+        jsonObj.put("planetImage", planet.planetImage)
+        jsonObj.put("systemId", planet.systemId)
+
+        VolleySingleton.getInstance().requestQueue
+
+        val stringRequest = JsonObjectRequest(
+            Request.Method.PUT,
+            ApiConfig.API_URL_BASE + "api/planets/${id}",
+            jsonObj,
+            Response.Listener {
+                    response ->
+                callback.onPlanetarySystemResponse(response.toString())
+            },
+            Response.ErrorListener {
+                    error ->
+                callback.onPlanetarySystemError(error.message)
+            }
+
+        )
+
+        VolleySingleton.getInstance().addToRequestQueue(stringRequest)    }
 
     override fun addPlanet(
         planet: Planet,
