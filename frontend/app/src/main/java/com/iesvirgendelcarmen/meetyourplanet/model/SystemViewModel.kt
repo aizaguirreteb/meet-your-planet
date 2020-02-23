@@ -1,9 +1,7 @@
 package com.iesvirgendelcarmen.meetyourplanet.model
 
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.iesvirgendelcarmen.meetyourplanet.R
 import com.iesvirgendelcarmen.meetyourplanet.model.api.PlanetarySystemRepository
 
 class SystemViewModel : ViewModel(){
