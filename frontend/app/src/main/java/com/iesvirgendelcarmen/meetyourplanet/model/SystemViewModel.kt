@@ -3,6 +3,7 @@ package com.iesvirgendelcarmen.meetyourplanet.model
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.iesvirgendelcarmen.meetyourplanet.config.ApiConfig
 import com.iesvirgendelcarmen.meetyourplanet.model.api.PlanetarySystemRepository
 
 class SystemViewModel : ViewModel(){
@@ -151,6 +152,7 @@ class SystemViewModel : ViewModel(){
         PlanetarySystemRepository.login(user, object : PlanetarySystemRepository.UserRepositoryCallback {
             override fun onUserResponse(obj: Any) {
                 Log.d("VM R", obj.toString())
+                ApiConfig.token = obj.toString()
             }
 
             override fun onUserError(msg: String?) {
