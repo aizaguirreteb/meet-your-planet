@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
@@ -16,7 +17,7 @@ import com.iesvirgendelcarmen.meetyourplanet.fragment.LoginFragment
 import com.iesvirgendelcarmen.meetyourplanet.fragment.SystemsListFragment
 
 
-class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
+class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener, LoginFragment.LoginDone{
 
     private val listFragment: SystemsListFragment = SystemsListFragment()
     private val homeFragment: HomeFragment = HomeFragment()
@@ -60,8 +61,14 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
             .commit()
     }
 
-    private fun configurarDrawer(navigationView: NavigationView) {
+    fun changeFragmentNotBackStack(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+            .commit()
+    }
 
+    private fun configurarDrawer(navigationView: NavigationView) {
 
     }
 
@@ -79,7 +86,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.nav_logino -> {
-                changeFragment(loginFragment)
+                changeFragmentNotBackStack(loginFragment)
             }
             R.id.nav_systems -> {
                 changeFragment(listFragment)
@@ -100,4 +107,13 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener{
             super.onBackPressed()
         }
     }
+
+    override fun onLoginDone(status: Boolean) {
+        navigationView.menu.getItem(1).isEnabled = status
+        navigationView.menu.getItem(2).isEnabled = !status
+        if (status)
+            changeFragmentNotBackStack(homeFragment)
+    }
+
+
 }

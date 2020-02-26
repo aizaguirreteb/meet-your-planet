@@ -10,6 +10,7 @@ class SystemViewModel : ViewModel(){
 
     val systemListLiveData = MutableLiveData<Resource<List<PlanetarySystem>>>()
     val planetsLiveData = MutableLiveData<Resource<List<Planet>>>()
+    val loginLiveData = MutableLiveData<Boolean>()
 
     fun getAllPlanetarySystems() {
         PlanetarySystemRepository.getPlanetarySystems(object : PlanetarySystemRepository.PlanetarySystemListRepositoryCallback{
@@ -153,6 +154,7 @@ class SystemViewModel : ViewModel(){
             override fun onUserResponse(obj: Any) {
                 Log.d("VM R", obj.toString())
                 ApiConfig.token = obj.toString()
+                loginLiveData.value = true
             }
 
             override fun onUserError(msg: String?) {
