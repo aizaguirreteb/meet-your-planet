@@ -1,17 +1,17 @@
 package com.iesvirgendelcarmen.meetyourplanet
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
+import com.iesvirgendelcarmen.meetyourplanet.config.ApiConfig
 import com.iesvirgendelcarmen.meetyourplanet.fragment.HomeFragment
 import com.iesvirgendelcarmen.meetyourplanet.fragment.LoginFragment
 import com.iesvirgendelcarmen.meetyourplanet.fragment.SystemsListFragment
@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener, Logi
     private val loginFragment: LoginFragment = LoginFragment()
     lateinit var drawerLayout: DrawerLayout
     lateinit var navigationView: NavigationView
+    lateinit var prefs: SharedPreferences;
+    lateinit var prefsEditor: SharedPreferences.Editor;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +34,12 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener, Logi
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        var abar = supportActionBar
+        val abar = supportActionBar
         if(abar != null){
             abar.setHomeAsUpIndicator(R.drawable.menu)
             abar.setDisplayHomeAsUpEnabled(true)
 
-            abar.setTitle("MEET YOUR PLANET")
+            abar.title = "MEET YOUR PLANET"
         }
 
         drawerLayout = findViewById(R.id.drawer)
@@ -51,8 +53,17 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener, Logi
                 .add(R.id.container, homeFragment)
                 .commit()
         }
+
+        checkSavedLogin()
     }
-    
+
+    private fun checkSavedLogin() {
+        prefs = getSharedPreferences("login", Context.MODE_PRIVATE)
+        ApiConfig.token = prefs.getString("token", "").orEmpty()
+        if (ApiConfig.token != "")
+            onLoginDone(true)
+    }
+
     fun changeFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
@@ -68,10 +79,6 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener, Logi
             .commit()
     }
 
-    private fun configurarDrawer(navigationView: NavigationView) {
-
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home -> {
@@ -85,14 +92,17 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener, Logi
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.nav_logino -> {
+            R.id.nav_login -> {
                 changeFragmentNotBackStack(loginFragment)
             }
             R.id.nav_systems -> {
                 changeFragment(listFragment)
             }
             R.id.nav_home -> {
-                changeFragment(homeFragment)
+                changeFragmentNotBackStack(homeFragment)
+            }
+            R.id.nav_logout -> {
+                onLoginDone(false)
             }
 
         }
@@ -111,8 +121,18 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener, Logi
     override fun onLoginDone(status: Boolean) {
         navigationView.menu.getItem(1).isEnabled = status
         navigationView.menu.getItem(2).isEnabled = !status
-        if (status)
+        navigationView.menu.getItem(3).isEnabled = status
+        if (status) {
             changeFragmentNotBackStack(homeFragment)
+            prefsEditor = prefs.edit()
+            prefsEditor.putString("token", ApiConfig.token)
+            prefsEditor.commit()
+        } else {
+            changeFragment(homeFragment)
+            prefsEditor = prefs.edit()
+            prefsEditor.putString("token", "")
+            prefsEditor.commit()
+        }
     }
 
 
