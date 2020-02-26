@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.iesvirgendelcarmen.meetyourplanet.config.ApiConfig
-import com.iesvirgendelcarmen.meetyourplanet.model.api.PlanetarySystemRepository
+import com.iesvirgendelcarmen.meetyourplanet.model.api.PlanetarySystemRetrofitRepository
+import com.iesvirgendelcarmen.meetyourplanet.model.api.PlanetarySystemVolleyRepository
 
 class SystemViewModel : ViewModel(){
 
@@ -13,7 +14,7 @@ class SystemViewModel : ViewModel(){
     val loginLiveData = MutableLiveData<Boolean>()
 
     fun getAllPlanetarySystems() {
-        PlanetarySystemRepository.getPlanetarySystems(object : PlanetarySystemRepository.PlanetarySystemListRepositoryCallback{
+        PlanetarySystemVolleyRepository.getPlanetarySystems(object : PlanetarySystemRetrofitRepository.PlanetarySystemListRepositoryCallback{
             override fun onPlanetarySystemResponse(planetarySystems: List<PlanetarySystem>) {
                 systemListLiveData.value = Resource.success(planetarySystems)
             }
@@ -30,8 +31,8 @@ class SystemViewModel : ViewModel(){
     }
 
     fun deletePlanetarySystemById(id: String) {
-        PlanetarySystemRepository.deletePlanetarySystemById(id,
-            object : PlanetarySystemRepository.PlanetarySystemListRepositoryCallback {
+        PlanetarySystemRetrofitRepository.deletePlanetarySystemById(id,
+            object : PlanetarySystemRetrofitRepository.PlanetarySystemListRepositoryCallback {
                 override fun onPlanetarySystemResponse(planetarySystems: List<PlanetarySystem>) {
                     systemListLiveData.value = Resource.success(planetarySystems)
                 }
@@ -46,8 +47,8 @@ class SystemViewModel : ViewModel(){
     }
 
     fun addPlanetarySystem(planetarySystem: PlanetarySystem){
-        PlanetarySystemRepository.addPlanetarySystem(planetarySystem,
-            object : PlanetarySystemRepository.PlanetarySystemRepositoryCallback {
+        PlanetarySystemRetrofitRepository.addPlanetarySystem(planetarySystem,
+            object : PlanetarySystemRetrofitRepository.PlanetarySystemRepositoryCallback {
                 override fun onPlanetarySystemResponse(planetarySystem: PlanetarySystem) {
 
                 }
@@ -63,8 +64,8 @@ class SystemViewModel : ViewModel(){
     }
 
     fun updatePlanetarySystem(id: String, planetarySystem: PlanetarySystem) {
-        PlanetarySystemRepository.updatePlanetarySystem(id, planetarySystem,
-            object : PlanetarySystemRepository.RepositoryUpdateCallback {
+        PlanetarySystemRetrofitRepository.updatePlanetarySystem(id, planetarySystem,
+            object : PlanetarySystemRetrofitRepository.RepositoryUpdateCallback {
                 override fun onPlanetarySystemResponse(msg: String?) {
 
                 }
@@ -80,7 +81,7 @@ class SystemViewModel : ViewModel(){
     }
 
     fun getAllPlanetsBySystemId(id: String){
-        PlanetarySystemRepository.getPlanetsBySystemId(id, object : PlanetarySystemRepository.PlanetsListRepositoryCallback{
+        PlanetarySystemVolleyRepository.getPlanetsBySystemId(id, object : PlanetarySystemRetrofitRepository.PlanetsListRepositoryCallback{
             override fun onPLanetsResponse(planets: List<Planet>) {
                 planetsLiveData.value = Resource.success(planets)
             }
@@ -98,8 +99,8 @@ class SystemViewModel : ViewModel(){
     }
 
     fun deletePlanetById(systemId: String, id: String) {
-        PlanetarySystemRepository.deletePlanetById(systemId,id,
-            object : PlanetarySystemRepository.PlanetsListRepositoryCallback{
+        PlanetarySystemRetrofitRepository.deletePlanetById(systemId,id,
+            object : PlanetarySystemRetrofitRepository.PlanetsListRepositoryCallback{
                 override fun onPLanetsResponse(planets: List<Planet>) {
                     planetsLiveData.value = Resource.success(planets)
                 }
@@ -117,8 +118,8 @@ class SystemViewModel : ViewModel(){
     }
 
     fun addPlanet(planet: Planet) {
-        PlanetarySystemRepository.addPlanet(planet,
-            object : PlanetarySystemRepository.PlanetRepositoryCallback {
+        PlanetarySystemRetrofitRepository.addPlanet(planet,
+            object : PlanetarySystemRetrofitRepository.PlanetRepositoryCallback {
                 override fun onPlanetResponse(planet: Planet){
                 }
 
@@ -133,8 +134,8 @@ class SystemViewModel : ViewModel(){
     }
 
     fun updatePlanet(id: String, planet: Planet) {
-        PlanetarySystemRepository.updatePlanet(id, planet,
-            object : PlanetarySystemRepository.RepositoryUpdateCallback {
+        PlanetarySystemRetrofitRepository.updatePlanet(id, planet,
+            object : PlanetarySystemRetrofitRepository.RepositoryUpdateCallback {
                 override fun onPlanetarySystemResponse(msg: String?) {
 
                 }
@@ -150,7 +151,7 @@ class SystemViewModel : ViewModel(){
     }
 
     fun login(user: User){
-        PlanetarySystemRepository.login(user, object : PlanetarySystemRepository.UserRepositoryCallback {
+        PlanetarySystemRetrofitRepository.login(user, object : PlanetarySystemRetrofitRepository.UserRepositoryCallback {
             override fun onUserResponse(obj: Any) {
                 Log.d("VM R", obj.toString())
                 ApiConfig.token = obj.toString()

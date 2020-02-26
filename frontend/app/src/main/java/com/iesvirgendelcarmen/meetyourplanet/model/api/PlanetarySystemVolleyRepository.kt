@@ -15,13 +15,13 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
-object SystemVolleyRepository : PlanetarySystemsApi {
+object PlanetarySystemVolleyRepository : PlanetarySystemApi {
 
-    override fun getPlanetarySystems(callback: PlanetarySystemRepository.PlanetarySystemListRepositoryCallback) {
+    override fun getPlanetarySystems(callback: PlanetarySystemRetrofitRepository.PlanetarySystemListRepositoryCallback) {
         callback.onPlanetarySystemLoading()
         VolleySingleton.getInstance().requestQueue
 
-        val stringRequest = StringRequest(
+        val stringRequest = object: StringRequest(
             Request.Method.GET,
             ApiConfig.API_URL_BASE + "api/systems",
             Response.Listener {
@@ -42,14 +42,20 @@ object SystemVolleyRepository : PlanetarySystemsApi {
             Response.ErrorListener {
                 error -> callback.onPlanetarySystemError(error.message)
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["x-access-token"] = ApiConfig.token
+                return headers
+            }
+        }
         VolleySingleton.getInstance().addToRequestQueue(stringRequest)
 
     }
 
     override fun addPlanetarySystem(
         planetarySystem: PlanetarySystem,
-        callback: PlanetarySystemRepository.PlanetarySystemRepositoryCallback
+        callback: PlanetarySystemRetrofitRepository.PlanetarySystemRepositoryCallback
     ) {
         var jsonObj = JSONObject()
         jsonObj.put("_id", planetarySystem._id)
@@ -60,7 +66,7 @@ object SystemVolleyRepository : PlanetarySystemsApi {
 
         VolleySingleton.getInstance().requestQueue
 
-        val stringRequest = JsonObjectRequest(
+        val stringRequest = object: JsonObjectRequest(
             Request.Method.POST,
             ApiConfig.API_URL_BASE + "api/systems",
             jsonObj,
@@ -73,7 +79,13 @@ object SystemVolleyRepository : PlanetarySystemsApi {
                 callback.onPlanetarySystemError(error.message)
             }
 
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["x-access-token"] = ApiConfig.token
+                return headers
+            }
+        }
 
         VolleySingleton.getInstance().addToRequestQueue(stringRequest)
     }
@@ -81,7 +93,7 @@ object SystemVolleyRepository : PlanetarySystemsApi {
     override fun updatePlanetarySystem(
         id: String,
         planetarySystem: PlanetarySystem,
-        callback: PlanetarySystemRepository.RepositoryUpdateCallback
+        callback: PlanetarySystemRetrofitRepository.RepositoryUpdateCallback
     ) {
         var jsonObj = JSONObject()
         jsonObj.put("_id", planetarySystem._id)
@@ -92,7 +104,7 @@ object SystemVolleyRepository : PlanetarySystemsApi {
 
         VolleySingleton.getInstance().requestQueue
 
-        val stringRequest = JsonObjectRequest(
+        val stringRequest = object: JsonObjectRequest(
             Request.Method.PUT,
             ApiConfig.API_URL_BASE + "api/systems/${id}",
             jsonObj,
@@ -105,17 +117,23 @@ object SystemVolleyRepository : PlanetarySystemsApi {
                 callback.onPlanetarySystemError(error.message)
             }
 
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["x-access-token"] = ApiConfig.token
+                return headers
+            }
+        }
 
         VolleySingleton.getInstance().addToRequestQueue(stringRequest)    }
 
     override fun deletePlanetarySystemById(
         id: String,
-        callback: PlanetarySystemRepository.PlanetarySystemListRepositoryCallback
+        callback: PlanetarySystemRetrofitRepository.PlanetarySystemListRepositoryCallback
     ) {
         VolleySingleton.getInstance().requestQueue
 
-        val stringRequest = StringRequest(
+        val stringRequest = object: StringRequest(
             Request.Method.DELETE,
             ApiConfig.API_URL_BASE + "api/systems/${id}",
             Response.Listener {
@@ -124,19 +142,25 @@ object SystemVolleyRepository : PlanetarySystemsApi {
             Response.ErrorListener {
                     error -> callback.onPlanetarySystemError(error.message)
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["x-access-token"] = ApiConfig.token
+                return headers
+            }
+        }
 
         VolleySingleton.getInstance().addToRequestQueue(stringRequest)
     }
 
     override fun getPlanetsBySystemId(
         id: String,
-        callback: PlanetarySystemRepository.PlanetsListRepositoryCallback
+        callback: PlanetarySystemRetrofitRepository.PlanetsListRepositoryCallback
     ) {
         callback.onPlanetsLoading()
         VolleySingleton.getInstance().requestQueue
 
-        val stringRequest = StringRequest(
+        val stringRequest = object: StringRequest(
             Request.Method.GET,
             ApiConfig.API_URL_BASE + "api/systems/${id}/planets",
             Response.Listener {
@@ -157,18 +181,24 @@ object SystemVolleyRepository : PlanetarySystemsApi {
             Response.ErrorListener {
                     error -> callback.onPlanetsError(error.message)
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["x-access-token"] = ApiConfig.token
+                return headers
+            }
+        }
         VolleySingleton.getInstance().addToRequestQueue(stringRequest)
     }
 
     override fun deletePlanetById(
         systemId: String,
         id: String,
-        callback: PlanetarySystemRepository.PlanetsListRepositoryCallback
+        callback: PlanetarySystemRetrofitRepository.PlanetsListRepositoryCallback
     ) {
          VolleySingleton.getInstance().requestQueue
 
-        val stringRequest = StringRequest(
+        val stringRequest = object: StringRequest(
             Request.Method.DELETE,
             ApiConfig.API_URL_BASE + "api/planets/${id}",
             Response.Listener {
@@ -177,7 +207,13 @@ object SystemVolleyRepository : PlanetarySystemsApi {
             Response.ErrorListener {
                 error -> callback.onPlanetsError(error.message)
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["x-access-token"] = ApiConfig.token
+                return headers
+            }
+        }
 
         VolleySingleton.getInstance().addToRequestQueue(stringRequest)
     }
@@ -185,7 +221,7 @@ object SystemVolleyRepository : PlanetarySystemsApi {
     override fun updatePlanet(
         id: String,
         planet: Planet,
-        callback: PlanetarySystemRepository.RepositoryUpdateCallback
+        callback: PlanetarySystemRetrofitRepository.RepositoryUpdateCallback
     ) {
         var jsonObj = JSONObject()
         jsonObj.put("_id", planet._id)
@@ -202,7 +238,7 @@ object SystemVolleyRepository : PlanetarySystemsApi {
 
         VolleySingleton.getInstance().requestQueue
 
-        val stringRequest = JsonObjectRequest(
+        val stringRequest = object: JsonObjectRequest(
             Request.Method.PUT,
             ApiConfig.API_URL_BASE + "api/planets/${id}",
             jsonObj,
@@ -215,13 +251,19 @@ object SystemVolleyRepository : PlanetarySystemsApi {
                 callback.onPlanetarySystemError(error.message)
             }
 
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["x-access-token"] = ApiConfig.token
+                return headers
+            }
+        }
 
         VolleySingleton.getInstance().addToRequestQueue(stringRequest)    }
 
     override fun addPlanet(
         planet: Planet,
-        callback: PlanetarySystemRepository.PlanetRepositoryCallback
+        callback: PlanetarySystemRetrofitRepository.PlanetRepositoryCallback
     ) {
         var jsonObj = JSONObject()
         jsonObj.put("_id", planet._id)
@@ -238,7 +280,7 @@ object SystemVolleyRepository : PlanetarySystemsApi {
 
         VolleySingleton.getInstance().requestQueue
 
-        val stringRequest = JsonObjectRequest(
+        val stringRequest = object: JsonObjectRequest(
             Request.Method.POST,
             ApiConfig.API_URL_BASE + "api/planets",
             jsonObj,
@@ -251,12 +293,18 @@ object SystemVolleyRepository : PlanetarySystemsApi {
                 callback.onPlanetError(error.message)
             }
 
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["x-access-token"] = ApiConfig.token
+                return headers
+            }
+        }
 
         VolleySingleton.getInstance().addToRequestQueue(stringRequest)
     }
 
-    override fun login(user: User, callback: PlanetarySystemRepository.UserRepositoryCallback) {
+    override fun login(user: User, callback: PlanetarySystemRetrofitRepository.UserRepositoryCallback) {
         var jsonObj = JSONObject()
         jsonObj.put("email", user.email)
         jsonObj.put("password", user.password)
@@ -269,7 +317,7 @@ object SystemVolleyRepository : PlanetarySystemsApi {
             jsonObj,
             Response.Listener {
                     response ->
-                callback.onUserResponse(parseSystem(response.toString()))
+                callback.onUserResponse(response.toString())
             },
             Response.ErrorListener {
                     error ->
