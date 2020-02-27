@@ -40,4 +40,8 @@
     <string name="surface">Surface:</string>
     <string name="add_planet">Add Planet</string>
     <string name="update_planet">Update Planet:</string>
+    <string name="passwordHint">Password:</string>
+    <string name="loginTitle">Login</string>
+    <string name="emailHint">Email:</string>
+    <string name="loginBtn">Login</string>
 </resources>

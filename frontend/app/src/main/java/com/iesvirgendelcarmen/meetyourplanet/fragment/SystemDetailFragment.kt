@@ -55,9 +55,9 @@ class SystemDetailFragment(): Fragment() {
         val clickListener = object: PlanetRecyclerAdapter.OnItemClickListener{
 
             override fun onClicked(planet: Planet) {
-                Toast.makeText(context,
+                /*Toast.makeText(context,
                     "${planet.name} + ${planet._id}",
-                    Toast.LENGTH_SHORT).show()
+                    Toast.LENGTH_SHORT).show()*/
 
                 val fragment = PlanetDetailFragment()
                 val args = Bundle()

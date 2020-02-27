@@ -13,14 +13,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor">
+    android:background="@color/primaryColor"
+    android:padding="16dp">
 
 
     <ImageView
         android:id="@+id/imageViewPlanetCoverDetail"
         android:layout_width="0dp"
         android:layout_height="200dp"
-
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"

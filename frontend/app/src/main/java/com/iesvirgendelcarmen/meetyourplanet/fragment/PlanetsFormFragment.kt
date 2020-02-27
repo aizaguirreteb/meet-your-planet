@@ -110,7 +110,7 @@ class PlanetsFormFragment() : Fragment() {
                     if(inEditPlanetMode)
                         Planet(planetEdit._id, name,category,orbitalPeriod,mass,temperature,satellites,gravity,surface,imagen, planetEdit.systemId)
                     else
-                        Planet("0", name,category,orbitalPeriod,mass,temperature,satellites,gravity,surface,imagen, planetEdit.systemId)
+                        Planet("0", name,category,orbitalPeriod,mass,temperature,satellites,gravity,surface,imagen, systemId)
 
     }
 

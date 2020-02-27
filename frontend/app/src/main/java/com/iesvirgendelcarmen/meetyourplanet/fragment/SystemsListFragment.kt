@@ -44,9 +44,9 @@ class SystemsListFragment : Fragment() {
         val clickListener = object: SystemRecyclerAdapter.OnItemClickListener{
 
             override fun onClicked(planetarySystem: PlanetarySystem) {
-                Toast.makeText(context,
-                    "${planetarySystem.star} + ${planetarySystem._id}",
-                    Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context,
+                //    "${planetarySystem.star} + ${planetarySystem._id}",
+                //    Toast.LENGTH_SHORT).show()
 
                 val systemDetailFragment = SystemDetailFragment()
                 val args = Bundle()
@@ -124,7 +124,7 @@ class SystemsListFragment : Fragment() {
                 }
                 Resource.Status.ERROR -> {
                     if(resource.message != null ){
-                        Toast.makeText(context, resource.message , Toast.LENGTH_LONG).show()
+                        /*Toast.makeText(context, resource.message , Toast.LENGTH_LONG).show()*/
                     }
                 }
                 Resource.Status.LOADING -> {

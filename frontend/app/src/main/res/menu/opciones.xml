@@ -8,11 +8,15 @@
             android:title="Home" />
         <item
             android:id="@+id/nav_systems"
+            android:enabled="false"
             android:title="Planetary Systems" />
         <item
-            android:id="@+id/nav_logino"
-
+            android:id="@+id/nav_login"
             android:title="Login" />
+        <item
+            android:id="@+id/nav_logout"
+            android:enabled="false"
+            android:title="Logout" />
 
 
 
